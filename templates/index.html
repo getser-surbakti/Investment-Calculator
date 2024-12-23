@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Investment Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -11,86 +12,92 @@
         }
         .container {
             margin-top: 50px;
-            max-width: 600px;
+            max-width: 500px;
         }
-        .calculator {
+        .form-control, .btn {
             border-radius: 10px;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
-        }
-        .form-control {
-            border-radius: 10px;
-            margin-bottom: 20px;
         }
         .btn-primary {
             background-color: #007bff;
             border: none;
             padding: 10px 20px;
-            border-radius: 10px;
         }
         .btn-primary:hover {
             background-color: #0056b3;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Investment Calculator</h1>
-        <div class="calculator">
-            <form id="calc-form" action="/result" method="post">
+        <div class="card p-4">
+            <h1 class="text-center mb-4">Investment Calculator</h1>
+            <form action="/result" method="POST">
                 <div class="form-group">
-                    <label for="initial_amount">Initial Amount:</label>
-                    <input type="number" class="form-control" id="initial_amount" name="initial_amount" required>
+                    <label for="initial_amount" class="form-label">Initial Amount</label>
+                    <input type="number" step="any" name="initial_amount" id="initial_amount" class="form-control" placeholder="Enter initial amount" required>
                 </div>
                 <div class="form-group">
-                    <label for="years">After How Many Years:</label>
-                    <input type="number" class="form-control" id="years" name="years" required>
+                    <label for="years" class="form-label">Number of Years</label>
+                    <input type="number" name="years" id="years" class="form-control" placeholder="Enter number of years" required>
                 </div>
                 <div class="form-group">
-                    <label for="return_rate">Return Rate (%):</label>
-                    <input type="number" class="form-control" id="return_rate" name="return_rate" required>
+                    <label for="return_rate" class="form-label">Return Rate (%)</label>
+                    <input type="number" step="any" name="return_rate" id="return_rate" class="form-control" placeholder="Enter annual return rate (%)" required>
                 </div>
                 <div class="form-group">
-                    <label for="interest_type">Interest Type:</label>
-                    <select class="form-control" id="interest_type" name="interest_type" required>
-                        <option value="compound">Compound Interest</option>
-                        <option value="simple">Simple Interest</option>
+                    <label for="interest_type" class="form-label">Interest Type</label>
+                    <select name="interest_type" id="interest_type" class="form-control" required>
+                        <option value="simple">Simple</option>
+                        <option value="compound">Compound</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="currency">Currency:</label>
-                    <select class="form-control" id="currency" name="currency" required>
-                        <option value="Rp">Rp</option>
-                        <option value="USD">US Dollar</option>
-                    </select>
-                </div>
-                <div class="form-group" id="compound_options_group">
-                    <label for="compound_options">Compound Options:</label>
-                    <select class="form-control" id="compound_options" name="compound_options" required>
+                <div class="form-group" id="compound-options-group" style="display: none;">
+                    <label for="compound_options" class="form-label">Compound Frequency</label>
+                    <select name="compound_options" id="compound_options" class="form-control">
                         <option value="daily">Daily</option>
                         <option value="weekly">Weekly</option>
                         <option value="monthly">Monthly</option>
                         <option value="quarterly">Quarterly</option>
                         <option value="semi-annually">Semi-Annually</option>
-                        <option value="annually">Annually</option>
+                        <option value="annually" selected>Annually</option>
                     </select>
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Calculate</button>
+                <div class="form-group">
+                    <label for="currency" class="form-label">Currency</label>
+                    <select name="currency" id="currency" class="form-control" required>
+                        <option value="Rp">Rp (Indonesian Rupiah)</option>
+                        <option value="$">USD ($)</option>
+                        <option value="€">Euro (€)</option>
+                        <option value="£">GBP (£)</option>
+                        <option value="₹">INR (₹)</option>
+                    </select>
                 </div>
+                <button type="submit" class="btn btn-primary btn-block">Calculate</button>
             </form>
         </div>
     </div>
+
     <script>
-        document.getElementById('interest_type').addEventListener('change', function () {
-            const compoundOptionsGroup = document.getElementById('compound_options_group');
-            if (this.value === 'simple') {
-                compoundOptionsGroup.style.display = 'none';
-            } else {
+        // Show or hide compound options based on interest type
+        const interestTypeElement = document.getElementById('interest_type');
+        const compoundOptionsGroup = document.getElementById('compound-options-group');
+        interestTypeElement.addEventListener('change', function () {
+            if (this.value === 'compound') {
                 compoundOptionsGroup.style.display = 'block';
+            } else {
+                compoundOptionsGroup.style.display = 'none';
             }
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

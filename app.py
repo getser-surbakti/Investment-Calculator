@@ -2,13 +2,18 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+@app.template_filter('format_number')
+def format_number(value):
+    """Format numbers with commas for thousands."""
+    return f"{value:,.2f}"
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/result', methods=['POST'])
 def result():
-    initial_amount = float(request.form['initial_amount'])
+    initial_amount = float(request.form['initial_amount'].replace(',', ''))
     years = int(request.form['years'])
     return_rate = float(request.form['return_rate']) / 100
     interest_type = request.form['interest_type']
@@ -26,7 +31,6 @@ def result():
     n = compound_periods.get(compound_option, 1)
 
     yearly_balances = []
-
     if interest_type == 'compound':
         for year in range(1, years + 1):
             yearly_balance = initial_amount * (1 + return_rate / n) ** (n * year)
@@ -38,10 +42,18 @@ def result():
 
     final_amount = yearly_balances[-1] if yearly_balances else initial_amount
 
-    return render_template('result.html', initial_amount=initial_amount, years=years,
-                           return_rate=return_rate * 100, interest_type=interest_type,
-                           compound_option=compound_option, final_amount=final_amount,
-                           yearly_balances=yearly_balances, currency=currency, enumerate=enumerate)
+    return render_template(
+        'result.html',
+        initial_amount=initial_amount,
+        years=years,
+        return_rate=return_rate * 100,
+        interest_type=interest_type,
+        compound_option=compound_option,
+        final_amount=final_amount,
+        yearly_balances=yearly_balances,
+        currency=currency,
+        enumerate=enumerate  # Pass `enumerate` explicitly
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
