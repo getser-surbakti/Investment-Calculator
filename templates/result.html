@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Investment Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 800px;
+        }
+        .result {
+            border-radius: 10px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .nav-tabs {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Investment Result</h1>
+        <div class="result">
+            <p><strong>Initial Amount:</strong> {{ currency }} {{ initial_amount }}</p>
+            <p><strong>Years:</strong> {{ years }}</p>
+            <p><strong>Return Rate:</strong> {{ return_rate }}%</p>
+            <p><strong>Interest Type:</strong> {{ interest_type.capitalize() }}</p>
+            <p><strong>Compound Option:</strong> {{ compound_option.capitalize() if interest_type == 'compound' else 'N/A' }}</p>
+            <p><strong>Final Amount:</strong> {{ currency }} {{ final_amount | round(2) }}</p>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="balances-tab" data-toggle="tab" href="#balances" role="tab" aria-controls="balances" aria-selected="true">Yearly Balances</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="false">Balance Over Time</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="balances" role="tabpanel" aria-labelledby="balances-tab">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for year, balance in enumerate(yearly_balances, 1) %}
+                                <tr>
+                                    <td>{{ year }}</td>
+                                    <td>{{ currency }} {{ balance | round(2) }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+                    <div class="chart-container">
+                        <canvas id="balanceChart"></canvas>
+                    </div>
+                    <script>
+                        const labels = [
+                            {% for year in range(1, years + 1) %}
+                                '{{ year }}',
+                            {% endfor %}
+                        ];
+                        const data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Compound Interest',
+                                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                                    borderColor: 'rgba(0, 123, 255, 1)',
+                                    pointBackgroundColor: 'rgba(0, 123, 255, 1)',
+                                    pointBorderColor: '#fff',
+                                    pointHoverBackgroundColor: '#fff',
+                                    pointHoverBorderColor: 'rgba(0, 123, 255, 1)',
+                                    data: [
+                                        {% for balance in yearly_balances %}
+                                            {{ balance | round(2) }},
+                                        {% endfor %}
+                                    ],
+                                    fill: true,
+                                    tension: 0.4,
+                                }
+                            ]
+                        };
+                        const config = {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: true,
+                                        labels: {
+                                            color: '#333',
+                                            font: {
+                                                size: 14,
+                                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+                                            }
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                let label = context.dataset.label || '';
+                                                if (label) {
+                                                    label += ': ';
+                                                }
+                                                label += '{{ currency }} ' + context.raw.toFixed(2);
+                                                return label;
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: 'Year',
+                                            color: '#333',
+                                            font: {
+                                                size: 14,
+                                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+                                            }
+                                        },
+                                        grid: {
+                                            color: 'rgba(200, 200, 200, 0.5)'
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            callback: function(value, index, values) {
+                                                return '{{ currency }} ' + value.toFixed(2);
+                                            },
+                                            color: '#333',
+                                            font: {
+                                                size: 14,
+                                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+                                            }
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Balance',
+                                            color: '#333',
+                                            font: {
+                                                size: 14,
+                                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+                                            }
+                                        },
+                                        grid: {
+                                            color: 'rgba(200, 200, 200, 0.5)'
+                                        }
+                                    }
+                                }
+                            }
+                        };
+                        var balanceChart = new Chart(
+                            document.getElementById('balanceChart'),
+                            config
+                        );
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Calculate Again</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
