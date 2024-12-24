@@ -53,6 +53,18 @@
         <h1 class="text-center">Investment Calculator</h1>
         <form method="POST">
             <div class="form-group">
+                <label for="currency">Currency</label>
+                <select id="currency" name="currency" class="form-control" required>
+                    <option value="$">$ Dollar</option>
+                    <option value="€">€ Euro</option>
+                    <option value="£">£ Pound</option>
+                    <option value="₹">₹ Rupee</option>
+                    <option value="Rp">Rp Indonesia</option>
+                    <option value="¥">¥ Yen</option>
+                    <option value="₣">₣ Franc</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="principal">Initial Investment Amount</label>
                 <input type="number" id="principal" name="principal" class="form-control" placeholder="How much do you plan to invest?" required>
             </div>
@@ -93,18 +105,7 @@
                 <label for="inflation_rate">Inflation Rate (%)</label>
                 <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Enter value here" required>
             </div>
-            <div class="form-group">
-                <label for="currency">Currency</label>
-                <select id="currency" name="currency" class="form-control" required>
-                    <option value="$">$ Dollar</option>
-                    <option value="€">€ Euro</option>
-                    <option value="£">£ Pound</option>
-                    <option value="₹">₹ Rupee</option>
-                    <option value="Rp">Rp Indonesia</option>
-                    <option value="¥">¥ Yen</option>
-                    <option value="₣">₣ Franc</option>
-                </select>
-            </div>
+            
             <button type="submit" class="btn btn-primary btn-block">Calculate</button>
         </form>
     </div>
