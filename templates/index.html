@@ -21,15 +21,14 @@
         }
         h1 {
             font-size: 1.8em;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: #007bff;
         }
         .form-group {
-            margin-bottom: 10 px;
+            margin-bottom: 10px;
         }
         .btn-block {
             margin-top: 20px;
-        
         }
         label {
             font-weight: bold;
@@ -48,15 +47,20 @@
                 color: black;
                 font-weight: bold;
             }
+            marquee {
+                font-size: 0.7em;
+                color: rgb(47, 116, 207);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">&#x1F4B8; Investment Calculator</h1>
+        <h1 class="text-center">Investment Calculator</h1>
+        <marquee direction="left">"Invest today, prosper tomorrow." - &#x2728; IG: @getsersurbakti-</marquee>
         <form method="POST">
             <div class="form-group">
-                <label for="currency" >1️⃣ <b>Step 1:</b> Currency</label>
+                <label for="currency">1️⃣ <b>Step 1:</b> Currency</label>
                 <select id="currency" name="currency" class="form-control" required>
                     <option value="">Pilih mata uang yang digunakan</option>
                     <option value="Rp">Rp Indonesia</option>
@@ -70,15 +74,15 @@
             </div>
             <div class="form-group">
                 <label for="principal">2️⃣ <b>Step 2:</b> Initial Investment Amount</label>
-                <input type="number" id="principal" name="principal" class="form-control" placeholder="Mau investasi berapa?" step="0.01"  required>
+                <input type="number" id="principal" name="principal" class="form-control" placeholder="Mau investasi berapa?" step="0.01" required>
             </div>
             <div class="form-group">
                 <label for="annual_rate">3️⃣ <b>Step 3:</b> Estimated Annual Rate of Return (%)</label>
                 <input type="number" id="annual_rate" name="annual_rate" class="form-control" placeholder="Kira-kira berapa persen return tahunannya?" step="0.01" required>
             </div>
             <div class="form-group">
-                <label for="years"> 4️⃣ <b>Step 4:</b> Years of Growth</label>
-                <input type="number" id="years" name="years" class="form-control" placeholder="Jangka waktu investnya berapa lama?" required>
+                <label for="years">4️⃣ <b>Step 4:</b> Years of Growth</label>
+                <input type="number" id="years" name="years" class="form-control" placeholder="Jangka waktu investasinya berapa lama?" required>
             </div>
             <div class="form-group">
                 <label for="contribution_amount">5️⃣ <b>Step 5:</b> Contribution Amount</label>
