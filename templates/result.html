@@ -7,228 +7,228 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Collapsible section styles */
+        .section-content {
+            display: none;
         }
-        .container {
-            margin-top: 20px;
-            padding: 15px;
+        .section-title {
+            cursor: pointer;
+            font-weight: bold;
+            color: #007bff;
         }
-        .result {
-            border-radius: 10px;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+        .section-title:hover {
+            color: #0056b3;
         }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-        .table th, .table td {
-            vertical-align: middle;
-        }
-        .table th {
-            background-color: #007bff;
-            color: white;
-        }
-        .nav-tabs {
-            margin-bottom: 20px;
-        }
-        .nav-tabs .nav-item {
-            flex: 1;
-        }
-        .nav-tabs .nav-link {
-            text-align: center;
-        }
-        /* Responsive styling for mobile */
-        @media (max-width: 767px) {
-            .container {
-                padding: 10px;
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .table th, .table td {
+                padding: 8px;
             }
-            .result {
+            .container {
                 padding: 15px;
             }
+            .nav-tabs {
+                flex-direction: column;
+                margin-top: 20px;
+            }
+            .nav-link {
+                font-size: 16px;
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+            .nav-item {
+                margin: 5px 0;
+            }
+        }
+
+        /* Horizontal navigation style for large screens */
+        @media (min-width: 768px) {
+            .nav-tabs {
+                display: flex;
+                justify-content: space-around;
+                margin-bottom: 20px;
+            }
+            .nav-item {
+                margin: 0 10px;
+            }
+            .nav-link {
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .nav-link:hover {
+                background-color: #0056b3;
+            }
+        }
+
+        /* Active class style for navigation */
+        .nav-link.active {
+            background-color: #28a745;  /* Green color for active state */
+            color: white;
+        }
+        .nav-link.inactive {
+            background-color: #007bff;  /* Blue color for inactive state */
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Investment Result</h1>
-        <div class="result">
-            <p><strong>Initial Amount:</strong> {{ currency }} {{ '{:,.2f}'.format(initial_amount) }}</p>
-            <p><strong>Years:</strong> {{ years }}</p>
-            <p><strong>Return Rate:</strong> {{ return_rate }}%</p>
-            <p><strong>Interest Type:</strong> {{ interest_type.capitalize() }}</p>
-            <p><strong>Compound Option:</strong> {{ compound_option.capitalize() if interest_type == 'compound' else 'N/A' }}</p>
-            <p><strong>Final Amount:</strong> {{ currency }} {{ '{:,.2f}'.format(final_amount) }}</p>
 
-            <!-- Navigation for Table and Chart -->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="balances-tab" data-toggle="tab" href="#balances" role="tab" aria-controls="balances" aria-selected="true">Yearly Balances</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="false">Balance Over Time</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <!-- Table Section -->
-                <div class="tab-pane fade show active" id="balances" role="tabpanel" aria-labelledby="balances-tab">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Year</th>
-                                <th>Balance</th>
-                                <th>Interest Earned</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for year, balance in enumerate(yearly_balances, 1) %}
-                                <tr>
-                                    <td>{{ year }}</td>
-                                    <td>{{ currency }} {{ '{:,.2f}'.format(balance) }}</td>
-                                    {% if year == 1 %}
-                                        <td>{{ currency }} {{ '{:,.2f}'.format(balance - initial_amount) }}</td>
-                                    {% else %}
-                                        <td>{{ currency }} {{ '{:,.2f}'.format(balance - yearly_balances[year - 2]) }}</td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <!-- Chart Section -->
-                <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
-                    <div class="chart-container">
-                        <canvas id="balanceChart"></canvas>
-                    </div>
-                </div>
+        <!-- Detailed Inputs Summary -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Investment Inputs:</h4>
+                <p><strong>Initial Amount:</strong> {{ currency }} {{ '{:,.2f}'.format(principal) }}</p>
+                <p><strong>Annual Rate:</strong> {{ annual_rate }}%</p>
+                <p><strong>Years:</strong> {{ years }}</p>
+                <p><strong>Contribution Amount:</strong>{{ currency }} {{ '{:,.2f}'.format(contribution_amount) }}</p>
+                <p><strong>Compounding Frequency:</strong> {{ compounding_frequency.capitalize() }}</p>
+                <p><strong>Inflation Rate:</strong> {{ inflation_rate }}%</p>
             </div>
         </div>
 
-        <!-- Button to calculate again -->
-        <div class="text-center mt-4">
-            <a href="/" class="btn btn-primary">Calculate Again</a>
+        <!-- Summary of Balances -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Summary of Balances:</h4>
+                <p><strong>Final Balance Without Inflation:</strong> {{ currency }} {{ '{:,.2f}'.format(final_balance_without_inflation) }}</p>
+                <p><strong>Final Balance With Inflation:</strong> {{ currency }} {{ '{:,.2f}'.format(final_balance_with_inflation) }}</p>
+            </div>
+        </div>
+
+        <!-- Horizontal Navigation for Sections -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="javascript:void(0);" onclick="toggleSection('balance-without-inflation', this)">Balance Without Inflation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('balance-with-inflation', this)">Balance With Inflation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('chart', this)">Comparative Chart</a>
+            </li>
+        </ul>
+
+        <!-- Section Content -->
+        <div class="mt-4">
+            <!-- Balance Without Inflation Section -->
+            <div id="balance-without-inflation" class="section-content">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Starting Balance</th>
+                            <th>Interest Earned</th>
+                            <th>Contributions</th>
+                            <th>Ending Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for year, details in yearly_summary_without_inflation.items() %}
+                        <tr>
+                            <td>{{ year }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Balance With Inflation Section -->
+            <div id="balance-with-inflation" class="section-content">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Starting Balance</th>
+                            <th>Interest Earned</th>
+                            <th>Contributions</th>
+                            <th>Ending Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for year, details in yearly_summary_with_inflation.items() %}
+                        <tr>
+                            <td>{{ year }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
+                            <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Comparative Chart Section -->
+            <div id="chart" class="section-content">
+                <h5>Comparative Chart: Balance With and Without Inflation</h5>
+                <canvas id="investmentChart" style="height:400px;width:100%"></canvas>
+                <script>
+                    var ctx = document.getElementById('investmentChart').getContext('2d');
+                    var investmentChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: [{% for year in range(1, years+1) %}{{ year }},{% endfor %}],
+                            datasets: [{
+                                label: 'Balance Without Inflation',
+                                data: [{% for year, details in yearly_summary_without_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
+                                borderColor: 'rgba(0, 123, 255, 1)',
+                                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                                fill: true
+                            },{
+                                label: 'Balance With Inflation',
+                                data: [{% for year, details in yearly_summary_with_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    beginAtZero: true
+                                },
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
         </div>
     </div>
 
-    <!-- JS Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script>
-        const labels = [
-            {% for year in range(1, years + 1) %}
-                '{{ year }}',
-            {% endfor %}
-        ];
-        const data = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Compound Interest',
-                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
-                    borderColor: 'rgba(0, 123, 255, 1)',
-                    pointBackgroundColor: 'rgba(0, 123, 255, 1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(0, 123, 255, 1)',
-                    data: [
-                        {% for balance in yearly_balances %}
-                            {{ balance }},
-                        {% endfor %}
-                    ],
-                    fill: true,
-                    tension: 0.4,
-                }
-            ]
-        };
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        labels: {
-                            color: '#333',
-                            font: {
-                                size: 14,
-                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-                            }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                label += '{{ currency }} ' + context.raw.toFixed(2);
-                                return label;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Year',
-                            color: '#333',
-                            font: {
-                                size: 14,
-                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(200, 200, 200, 0.5)'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return '{{ currency }} ' + value.toFixed(2);
-                            },
-                            color: '#333',
-                            font: {
-                                size: 14,
-                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Balance',
-                            color: '#333',
-                            font: {
-                                size: 14,
-                                family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(200, 200, 200, 0.5)'
-                        }
-                    }
-                }
-            }
-        };
-        var balanceChart = new Chart(
-            document.getElementById('balanceChart'),
-            config
-        );
+        function toggleSection(id, element) {
+            // Hide all sections first
+            var sections = document.querySelectorAll('.section-content');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the clicked section
+            var section = document.getElementById(id);
+            section.style.display = 'block';
+
+            // Toggle active and inactive classes
+            var navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                link.classList.add('inactive');
+            });
+            element.classList.remove('inactive');
+            element.classList.add('active');
+        }
     </script>
 </body>
 </html>

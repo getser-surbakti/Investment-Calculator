@@ -2,102 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Investment Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Calculator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        /* Custom styling */
         body {
+            font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .container {
-            margin-top: 50px;
-            max-width: 500px;
+            max-width: 600px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .form-control, .btn {
-            border-radius: 10px;
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: #1d6ce4;
         }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            padding: 10px 20px;
+        .form-group {
+            margin-bottom: 15px;
         }
-        .btn-primary:hover {
-            background-color: #0056b3;
+        .btn-block {
+            margin-top: 20px;
         }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .form-label {
+        label {
             font-weight: bold;
+        }
+        select.form-control, input.form-control {
+            border-radius: 5px;
+        }
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 10px;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card p-4">
-            <h1 class="text-center mb-4">Investment Calculator</h1>
-            <form action="/result" method="POST">
-                <div class="form-group">
-                    <label for="initial_amount" class="form-label">Initial Amount</label>
-                    <input type="number" step="any" name="initial_amount" id="initial_amount" class="form-control" placeholder="Enter initial amount" required>
-                </div>
-                <div class="form-group">
-                    <label for="years" class="form-label">Number of Years</label>
-                    <input type="number" name="years" id="years" class="form-control" placeholder="Enter number of years" required>
-                </div>
-                <div class="form-group">
-                    <label for="return_rate" class="form-label">Return Rate (%)</label>
-                    <input type="number" step="any" name="return_rate" id="return_rate" class="form-control" placeholder="Enter annual return rate (%)" required>
-                </div>
-                <div class="form-group">
-                    <label for="interest_type" class="form-label">Interest Type</label>
-                    <select name="interest_type" id="interest_type" class="form-control" required>
-                        <option value="simple">Simple</option>
-                        <option value="compound">Compound</option>
-                    </select>
-                </div>
-                <div class="form-group" id="compound-options-group" style="display: none;">
-                    <label for="compound_options" class="form-label">Compound Frequency</label>
-                    <select name="compound_options" id="compound_options" class="form-control">
-                        <option value="daily">Daily</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="quarterly">Quarterly</option>
-                        <option value="semi-annually">Semi-Annually</option>
-                        <option value="annually" selected>Annually</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="currency" class="form-label">Currency</label>
-                    <select name="currency" id="currency" class="form-control" required>
-                        <option value="Rp">Rp (Indonesian Rupiah)</option>
-                        <option value="$">USD ($)</option>
-                        <option value="€">Euro (€)</option>
-                        <option value="£">GBP (£)</option>
-                        <option value="₹">INR (₹)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Calculate</button>
-            </form>
-        </div>
+        <h1 class="text-center">Investment Calculator</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="principal">Initial Investment Amount</label>
+                <input type="number" id="principal" name="principal" class="form-control" placeholder="How much do you plan to invest?" required>
+            </div>
+            <div class="form-group">
+                <label for="annual_rate">Estimated Annual Rate of Return (%)</label>
+                <input type="number" id="annual_rate" name="annual_rate" class="form-control" placeholder="What is your annual expected rate of return?" required>
+            </div>
+            <div class="form-group">
+                <label for="years">Years of Growth</label>
+                <input type="number" id="years" name="years" class="form-control" placeholder="How long do you plan to leave your money in your investment?" required>
+            </div>
+            <div class="form-group">
+                <label for="contribution_amount">Contribution Amount</label>
+                <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Any planned regular contributions?" required>
+            </div>
+            <div class="form-group">
+                <label for="contribution_frequency">Contribution Frequency</label>
+                <select id="contribution_frequency" name="contribution_frequency" class="form-control" required>
+                    <option value="annually">Annually</option>
+                    <option value="semi-annually">Semi-annually</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="weekly">Weekly</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="compounding_frequency">Compounding Frequency</label>
+                <select id="compounding_frequency" name="compounding_frequency" class="form-control" required>
+                    <option value="annually">Annually</option>
+                    <option value="semi-annually">Annually</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="daily">Daily</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inflation_rate">Inflation Rate (%)</label>
+                <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Enter value here" required>
+            </div>
+            <div class="form-group">
+                <label for="currency">Currency</label>
+                <select id="currency" name="currency" class="form-control" required>
+                    <option value="$">$ Dollar</option>
+                    <option value="€">€ Euro</option>
+                    <option value="£">£ Pound</option>
+                    <option value="₹">₹ Rupee</option>
+                    <option value="Rp">Rp Indonesia</option>
+                    <option value="¥">¥ Yen</option>
+                    <option value="₣">₣ Franc</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+        </form>
     </div>
-
-    <script>
-        // Show or hide compound options based on interest type
-        const interestTypeElement = document.getElementById('interest_type');
-        const compoundOptionsGroup = document.getElementById('compound-options-group');
-        interestTypeElement.addEventListener('change', function () {
-            if (this.value === 'compound') {
-                compoundOptionsGroup.style.display = 'block';
-            } else {
-                compoundOptionsGroup.style.display = 'none';
-            }
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,59 +1,101 @@
 from flask import Flask, render_template, request
+import math
 
 app = Flask(__name__)
 
-@app.template_filter('format_number')
-def format_number(value):
-    """Format numbers with commas for thousands."""
-    return f"{value:,.2f}"
-
-@app.route('/')
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template('index.html')
+    if request.method == "POST":
+        # Get form data
+        principal = float(request.form["principal"])
+        annual_rate = float(request.form["annual_rate"]) / 100  # Convert percentage to decimal
+        years = int(request.form["years"])
+        contribution_amount = float(request.form["contribution_amount"])
+        contribution_frequency = request.form["contribution_frequency"]
+        compounding_frequency = request.form["compounding_frequency"]
+        inflation_rate = float(request.form["inflation_rate"]) / 100  # Convert percentage to decimal
+        currency = request.form["currency"]
+        
+        # Adjust for contribution frequency
+        if contribution_frequency == "monthly":
+            contribution_n = 12
+        elif contribution_frequency == "semi-annually":
+            contribution_n = 2
+        elif contribution_frequency == "quarterly":
+            contribution_n = 4
+        elif contribution_frequency == "weekly":
+            contribution_n = 52
+        else:
+            contribution_n = 1  # Annually
+        
+        # Adjust for compounding frequency
+        if compounding_frequency == "monthly":
+            n = 12
+        elif compounding_frequency == "quarterly":
+            n = 4
+        elif compounding_frequency == "semi-annually":
+            n = 2
+        elif compounding_frequency == "weekly":
+            n = 52
+        elif compounding_frequency == "daily":
+            n = 365
+        else:
+            n = 1  # Annually
 
-@app.route('/result', methods=['POST'])
-def result():
-    initial_amount = float(request.form['initial_amount'].replace(',', ''))
-    years = int(request.form['years'])
-    return_rate = float(request.form['return_rate']) / 100
-    interest_type = request.form['interest_type']
-    currency = request.form['currency']
+        # Calculate the balances for each year
+        starting_balance_without_inflation = principal
+        starting_balance_with_inflation = principal
+        yearly_summary_without_inflation = {}
+        yearly_summary_with_inflation = {}
 
-    compound_option = request.form.get('compound_options', 'annually')
-    compound_periods = {
-        'daily': 365,
-        'weekly': 52,
-        'monthly': 12,
-        'quarterly': 4,
-        'semi-annually': 2,
-        'annually': 1
-    }
-    n = compound_periods.get(compound_option, 1)
-
-    yearly_balances = []
-    if interest_type == 'compound':
         for year in range(1, years + 1):
-            yearly_balance = initial_amount * (1 + return_rate / n) ** (n * year)
-            yearly_balances.append(yearly_balance)
-    else:
-        for year in range(1, years + 1):
-            yearly_balance = initial_amount + (initial_amount * return_rate * year)
-            yearly_balances.append(yearly_balance)
+            total_contributions = contribution_amount * contribution_n * year
 
-    final_amount = yearly_balances[-1] if yearly_balances else initial_amount
+            # Interest calculations
+            interest_earned_without_inflation = starting_balance_without_inflation * (1 + annual_rate / n) ** (n * year) - starting_balance_without_inflation
+            interest_earned_with_inflation = starting_balance_with_inflation * (1 + annual_rate / n) ** (n * year) - starting_balance_with_inflation
 
-    return render_template(
-        'result.html',
-        initial_amount=initial_amount,
-        years=years,
-        return_rate=return_rate * 100,
-        interest_type=interest_type,
-        compound_option=compound_option,
-        final_amount=final_amount,
-        yearly_balances=yearly_balances,
-        currency=currency,
-        enumerate=enumerate  # Pass `enumerate` explicitly
-    )
+            # Ending balances
+            ending_balance_without_inflation = starting_balance_without_inflation + interest_earned_without_inflation + total_contributions
+            ending_balance_with_inflation = (starting_balance_with_inflation + interest_earned_with_inflation + total_contributions) / (1 + inflation_rate)
 
-if __name__ == '__main__':
+            # Store yearly results
+            yearly_summary_without_inflation[year] = {
+                'starting_balance': starting_balance_without_inflation,
+                'interest_earned': interest_earned_without_inflation,
+                'contributions': total_contributions,
+                'ending_balance': ending_balance_without_inflation
+            }
+
+            yearly_summary_with_inflation[year] = {
+                'starting_balance': starting_balance_with_inflation,
+                'interest_earned': interest_earned_with_inflation,
+                'contributions': total_contributions,
+                'ending_balance': ending_balance_with_inflation
+            }
+
+            # Update for the next year
+            starting_balance_without_inflation = ending_balance_without_inflation
+            starting_balance_with_inflation = ending_balance_with_inflation
+
+        final_balance_without_inflation = yearly_summary_without_inflation[years]['ending_balance']
+        final_balance_with_inflation = yearly_summary_with_inflation[years]['ending_balance']
+
+        return render_template(
+            "result.html",
+            principal=principal,
+            annual_rate=annual_rate * 100,
+            years=years,
+            compounding_frequency=compounding_frequency,
+            contribution_amount=contribution_amount,
+            inflation_rate=inflation_rate * 100,
+            currency=currency,
+            final_balance_without_inflation=final_balance_without_inflation,
+            final_balance_with_inflation=final_balance_with_inflation,
+            yearly_summary_without_inflation=yearly_summary_without_inflation,
+            yearly_summary_with_inflation=yearly_summary_with_inflation
+        )
+    return render_template("index.html")
+
+if __name__ == "__main__":
     app.run(debug=True)
