@@ -18,12 +18,14 @@ def index():
         # Adjust for contribution frequency
         if contribution_frequency == "monthly":
             contribution_n = 12
-        elif contribution_frequency == "semi-annually":
-            contribution_n = 2
         elif contribution_frequency == "quarterly":
             contribution_n = 4
+        elif contribution_frequency == "semi-annually":
+            contribution_n = 2
         elif contribution_frequency == "weekly":
             contribution_n = 52
+        elif contribution_frequency == "daily":
+            contribution_n = 365
         else:
             contribution_n = 1  # Annually
 
@@ -87,14 +89,14 @@ def index():
             annual_rate=annual_rate * 100,
             years=years,
             compounding_frequency=compounding_frequency,
+            contribution_frequency=contribution_frequency,
             contribution_amount=contribution_amount,
             inflation_rate=inflation_rate * 100,
             currency=currency,
             final_balance_without_inflation=final_balance_without_inflation,
             final_balance_with_inflation=final_balance_with_inflation,
             yearly_summary_without_inflation=yearly_summary_without_inflation,
-            yearly_summary_with_inflation=yearly_summary_with_inflation
-        )
+            yearly_summary_with_inflation=yearly_summary_with_inflation)
     return render_template("index.html")
 
 if __name__ == "__main__":
