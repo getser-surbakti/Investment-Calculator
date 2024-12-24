@@ -260,21 +260,23 @@
                 </script>
             </div>
         </div>
+
+        <!-- "Calculate Again" Button -->
+        <div class="text-center mt-4">
+            <button class="btn btn-primary" onclick="calculateAgain()">Calculate Again</button>
+        </div>
     </div>
 
     <script>
         function toggleSection(id, element) {
-            // Hide all sections first
             var sections = document.querySelectorAll('.section-content');
             sections.forEach(function(section) {
                 section.style.display = 'none';
             });
 
-            // Show the clicked section
             var section = document.getElementById(id);
             section.style.display = 'block';
 
-            // Toggle active and inactive classes
             var navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(function(link) {
                 link.classList.remove('active');
@@ -282,6 +284,11 @@
             });
             element.classList.remove('inactive');
             element.classList.add('active');
+        }
+
+        // Function for the "Calculate Again" button
+        function calculateAgain() {
+            window.location.href = 'https://investmentcalculator-getser.vercel.app/';  // Change '/calculate' to your input page URL
         }
     </script>
 </body>
