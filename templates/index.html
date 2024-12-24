@@ -29,6 +29,7 @@
         }
         .btn-block {
             margin-top: 20px;
+        
         }
         label {
             font-weight: bold;
@@ -43,68 +44,73 @@
                 padding: 15px;
             }
             h1 {
-                font-size: 1.5em;
+                font-size: 4em;
+                color: black;
+                font-weight: bold;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Investment Calculator</h1>
+        <h1 class="text-center">&#x1F4B8; Investment &#x1F4B8;Calculator</h1>
         <form method="POST">
             <div class="form-group">
-                <label for="currency">Currency</label>
+                <label for="currency" >1️⃣ <b>Step 1:</b> Currency</label>
                 <select id="currency" name="currency" class="form-control" required>
+                    <option value="">Pilih mata uang yang digunakan</option>
+                    <option value="Rp">Rp Indonesia</option>
                     <option value="$">$ Dollar</option>
                     <option value="€">€ Euro</option>
                     <option value="£">£ Pound</option>
                     <option value="₹">₹ Rupee</option>
-                    <option value="Rp">Rp Indonesia</option>
                     <option value="¥">¥ Yen</option>
-                    <option value="₣">₣ Franc</option>
+                    <option value="₣">₣ France</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="principal">Initial Investment Amount</label>
-                <input type="number" id="principal" name="principal" class="form-control" placeholder="How much do you plan to invest?" required>
+                <label for="principal">2️⃣ <b>Step 2:</b> Initial Investment Amount</label>
+                <input type="number" id="principal" name="principal" class="form-control" placeholder="Mau investasi berapa?" step="0.01"  required>
             </div>
             <div class="form-group">
-                <label for="annual_rate">Estimated Annual Rate of Return (%)</label>
-                <input type="number" id="annual_rate" name="annual_rate" class="form-control" placeholder="What is your annual expected rate of return?" required>
+                <label for="annual_rate">3️⃣ <b>Step 3:</b> Estimated Annual Rate of Return (%)</label>
+                <input type="number" id="annual_rate" name="annual_rate" class="form-control" placeholder="Kira-kira berapa persen return tahunannya?" step="0.01" required>
             </div>
             <div class="form-group">
-                <label for="years">Years of Growth</label>
-                <input type="number" id="years" name="years" class="form-control" placeholder="How long do you plan to leave your money in your investment?" required>
+                <label for="years"> 4️⃣ <b>Step 4:</b> Years of Growth</label>
+                <input type="number" id="years" name="years" class="form-control" placeholder="Jangka waktu investnya berapa lama?" required>
             </div>
             <div class="form-group">
-                <label for="contribution_amount">Contribution Amount</label>
-                <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Any planned regular contributions?" required>
+                <label for="contribution_amount">5️⃣ <b>Step 5:</b> Contribution Amount</label>
+                <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Ada rencana buat nyetor tambahan investasi? " required>
             </div>
             <div class="form-group">
-                <label for="contribution_frequency">Contribution Frequency</label>
+                <label for="contribution_frequency">6️⃣ <b>Step 6:</b> Contribution Frequency</label>
                 <select id="contribution_frequency" name="contribution_frequency" class="form-control" required>
-                    <option value="annually">Annually</option>
-                    <option value="semi-annually">Semi-annually</option>
-                    <option value="quarterly">Quarterly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="daily">Daily</option>
+                    <option value=" ">Setor tambahannya seberapa sering?</option>
+                    <option value="annually">Rutin setiap setahun sekali</option>
+                    <option value="semi-annually">Rutin setiap 6 bulan sekali</option>
+                    <option value="quarterly">Rutin setiap 3 bulan sekali</option>
+                    <option value="monthly">Rutin setiap bulan</option>
+                    <option value="weekly">Rutin setiap minggu</option>
+                    <option value="daily">Rutin setiap hari</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="compounding_frequency">Compounding Frequency</label>
+                <label for="compounding_frequency">7️⃣ <b>Step 7:</b> Compounding Frequency</label>
                 <select id="compounding_frequency" name="compounding_frequency" class="form-control" required>
-                    <option value="annually">Annually</option>
-                    <option value="semi-annually">Semi-annually</option>
-                    <option value="quarterly">Quarterly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="daily">Daily</option>
+                    <option value=" ">Pilih jenis pemajemukan bunga-nya</option>
+                    <option value="annually">Tahunan (Annually)</option>
+                    <option value="semi-annually">6 bulanan (Semi-annually)</option>
+                    <option value="quarterly">3 bulanan (Quarterly)</option>
+                    <option value="monthly">Bulanan (Monthly)</option>
+                    <option value="weekly">Mingguan (Weekly)</option>
+                    <option value="daily">Harian (Daily)</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="inflation_rate">Inflation Rate (%)</label>
-                <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Enter value here" required>
+                <label for="inflation_rate">8️⃣ <b>Step 8:</b> Inflation Rate (%)</label>
+                <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Kira-kira berapa besar inflasi-nya?" step="0.01" required>
             </div>
             
             <button type="submit" class="btn btn-primary btn-block">Calculate</button>

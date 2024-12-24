@@ -81,35 +81,85 @@
         <!-- Detailed Inputs Summary -->
         <div class="row mb-4">
             <div class="col-12">
-                <h4>Investment Inputs:</h4>
-                <p><strong>Initial Amount:</strong> {{ currency }} {{ '{:,.2f}'.format(principal) }}</p>
-                <p><strong>Annual Rate:</strong> {{ annual_rate }}%</p>
-                <p><strong>Years:</strong> {{ years }}</p>
-                <p><strong>Contribution Amount:</strong>{{ currency }} {{ '{:,.2f}'.format(contribution_amount) }} {{contribution_frequency}}</p>
-                <p><strong>Compounding Frequency:</strong> {{ compounding_frequency.capitalize() }}</p>
-                <p><strong>Inflation Rate:</strong> {{ inflation_rate }}%</p>
+                <h4 class="text-center mb-4">&#x1F310;Investment Inputs:</h4>
+                <!-- Investment Inputs Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Input</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Initial Amount</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Annual Rate</td>
+                                <td>{{ annual_rate }}%</td>
+                            </tr>
+                            <tr>
+                                <td>Years</td>
+                                <td>{{ years }}</td>
+                            </tr>
+                            <tr>
+                                <td>Contribution Amount</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount) }} {{ contribution_frequency }}</td>
+                            </tr>
+                            <tr>
+                                <td>Compounding Frequency</td>
+                                <td>{{ compounding_frequency.capitalize() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Inflation Rate</td>
+                                <td>{{ '{:,.1f}'.format(inflation_rate) }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <!-- Summary of Balances -->
         <div class="row mb-4">
             <div class="col-12">
-                <h4>Summary of Balances:</h4>
-                <p><strong>Final Balance Without Inflation:</strong> {{ currency }} {{ '{:,.2f}'.format(final_balance_without_inflation) }}</p>
-                <p><strong>Final Balance With Inflation:</strong> {{ currency }} {{ '{:,.2f}'.format(final_balance_with_inflation) }}</p>
+                <h4 class="text-center mb-4">&#x1F310;Summary of Balances:</h4>
+                <!-- Summary of Balances Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Balance Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Final Balance Without Inflation</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_without_inflation) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Final Balance With Inflation</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_with_inflation) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <!-- Horizontal Navigation for Sections -->
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="javascript:void(0);" onclick="toggleSection('balance-without-inflation', this)">Balance Without Inflation</a>
+                <a class="nav-link active" href="javascript:void(0);" onclick="toggleSection('balance-without-inflation', this)">&#x1F4CA; Balance Without Inflation</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('balance-with-inflation', this)">Balance With Inflation</a>
+                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('balance-with-inflation', this)">&#x1F4CA; Balance With Inflation</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('chart', this)">Comparative Chart</a>
+                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('chart', this)">&#x1F4C8; Comparative Chart</a>
             </li>
         </ul>
 
