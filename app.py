@@ -7,41 +7,33 @@ def index():
     if request.method == "POST":
         # Get form data
         principal = float(request.form["principal"])
-        annual_rate = float(request.form["annual_rate"]) / 100  # Convert percentage to decimal
+        annual_rate = float(request.form["annual_rate"])/100  # Convert percentage to decimal
         years = int(request.form["years"])
         contribution_amount = float(request.form["contribution_amount"])
         contribution_frequency = request.form["contribution_frequency"]
         compounding_frequency = request.form["compounding_frequency"]
-        inflation_rate = float(request.form["inflation_rate"]) / 100  # Convert percentage to decimal
+        inflation_rate = float(request.form["inflation_rate"])/100  # Convert percentage to decimal
         currency = request.form["currency"]
 
         # Adjust for contribution frequency
-        if contribution_frequency == "monthly":
-            contribution_n = 12
-        elif contribution_frequency == "quarterly":
-            contribution_n = 4
-        elif contribution_frequency == "semi-annually":
-            contribution_n = 2
-        elif contribution_frequency == "weekly":
-            contribution_n = 52
-        elif contribution_frequency == "daily":
-            contribution_n = 365
-        else:
-            contribution_n = 1  # Annually
+        contribution_n = {
+            "monthly": 12,
+            "quarterly": 4,
+            "semi-annually": 2,
+            "weekly": 52,
+            "daily": 365,
+            "annually": 1
+        }.get(contribution_frequency, 1)
 
         # Adjust for compounding frequency
-        if compounding_frequency == "monthly":
-            n = 12
-        elif compounding_frequency == "quarterly":
-            n = 4
-        elif compounding_frequency == "semi-annually":
-            n = 2
-        elif compounding_frequency == "weekly":
-            n = 52
-        elif compounding_frequency == "daily":
-            n = 365
-        else:
-            n = 1  # Annually
+        n = {
+            "monthly": 12,
+            "quarterly": 4,
+            "semi-annually": 2,
+            "weekly": 52,
+            "daily": 365,
+            "annually": 1
+        }.get(compounding_frequency, 1)
 
         # Calculate the balances for each year
         starting_balance_without_inflation = principal
@@ -83,20 +75,29 @@ def index():
         final_balance_without_inflation = yearly_summary_without_inflation[years]['ending_balance']
         final_balance_with_inflation = yearly_summary_with_inflation[years]['ending_balance']
 
+        total_contributions = contribution_amount * contribution_n * years
+        total_capital = principal + total_contributions
+
         return render_template(
-            "result.html",
-            principal=principal,
-            annual_rate=annual_rate * 100,
-            years=years,
-            compounding_frequency=compounding_frequency,
-            contribution_frequency=contribution_frequency,
-            contribution_amount=contribution_amount,
-            inflation_rate=inflation_rate * 100,
-            currency=currency,
-            final_balance_without_inflation=final_balance_without_inflation,
-            final_balance_with_inflation=final_balance_with_inflation,
-            yearly_summary_without_inflation=yearly_summary_without_inflation,
-            yearly_summary_with_inflation=yearly_summary_with_inflation)
+    'result.html',
+    principal=principal,
+    contribution_amount=contribution_amount,
+    contribution_n=contribution_n,
+    years=years,
+    final_balance_without_inflation=final_balance_without_inflation,
+    final_balance_with_inflation=final_balance_with_inflation,
+    currency=currency,
+    inflation_rate=inflation_rate,
+    annual_rate=annual_rate,
+    compounding_frequency=compounding_frequency,
+    contribution_frequency=contribution_frequency,
+    yearly_summary_without_inflation=yearly_summary_without_inflation,
+    yearly_summary_with_inflation=yearly_summary_with_inflation,
+    total_capital=total_capital,
+    total_contributions=total_contributions
+
+)
+
     return render_template("index.html")
 
 if __name__ == "__main__":
