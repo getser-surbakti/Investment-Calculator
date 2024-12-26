@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+    <header class="bg-primary text-white text-center py-4">
+        <h1 class="bg-primary text-white text-center py-4">Investment Report</h1>
+        <nav>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="http://127.0.0.1:5500/homepage.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="http://localhost:5000">Investment Calculator</a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="http://127.0.0.1:5500/budget_tracker.html">Budget Tracker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="http://127.0.0.1:5500/portfolio_report.html">Portfolio Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="http://127.0.0.1:5500/creator_profile.html">Creator Profile</a> <!-- Link to the Creator Profile page -->
+                </li>
+            </ul>
+        </nav>
+    </header>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investment Result</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         /* Collapsible section styles */
         .section-content {
@@ -101,6 +124,7 @@
             }
             .nav-item {
                 margin: 5px 0;
+                padding: 0px;
             }
         }
 
@@ -154,7 +178,6 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Investment Result</h1>
 
         <!-- Detailed Inputs Summary -->
         <div class="row mb-4">
@@ -408,6 +431,6 @@
             element.classList.remove('inactive');
             element.classList.add('active');
         }
-    </script>
+    </script>cd
 </body>
 </html>
