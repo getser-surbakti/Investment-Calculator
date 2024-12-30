@@ -1,27 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-    <header class="bg-primary text-white text-center py-4">
-        <h1 class="bg-primary text-white text-center py-4">Investment Report</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Management Tools</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<style>
+    /* General body styling */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    /* Header styling */
+    header {
+        background-color: #007bff;
+        color: white;
+        padding: 20px 0;
+    }
+
+    /* Title Styling */
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+    }
+
+    /* Navbar Styling */
+    .nav-item {
+        margin-right: 20px;
+    }
+
+    /* Styling for navigation links */
+    .nav-link {
+        color: white;
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #ffc107;
+    }
+
+    /* Responsive Navbar */
+    @media (max-width: 768px) {
+        .nav {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+            margin-right: 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+    }
+
+    /* Icon Styling */
+    .icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+    }
+
+    /* Section Styling */
+    section {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .description-text {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.8;
+        margin-top: 15px;
+        text-align: justify;
+    }
+
+    /* Mobile-friendly Marquee */
+    marquee {
+        font-size: 1rem;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    /* Footer Styling */
+    footer {
+        background-color: #0772c9;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    footer a {
+        color: white;
+        text-decoration: none;
+        margin-right: 15px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+
+    footer p {
+        font-size: 0.875rem;
+        margin-top: 10px;
+    }
+
+</style>
+
+<header>
+    <div class="container">
+        <h1 class="text-center mb-4">Financial Management Tools</h1>
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="https://finance-management-tools-getser.vercel.app/public/homepage.html" target="_blank">Home</a>
+                    <a class="nav-link text-white" href="homepage.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="https://investmentcalculator-getser.vercel.app/" target="_blank">Investment Calculator</a>
-                </li> 
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="https://finance-management-tools-getser.vercel.app/public/budget_tracker.html" target="_blank">Budget Tracker</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="https://finance-management-tools-getser.vercel.app/public/portfolio_report.html" target="_blank">Portfolio Report</a>
+                    <a class="nav-link text-white" href="budget_tracker.html">Cash Flow Tracker</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="https://finance-management-tools-getser.vercel.app/public/creator_profile.html" target="_blank">Creator Profile</a> <!-- Link to the Creator Profile page -->
+                    <a class="nav-link text-white" href="portfolio_report.html">Portfolio Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="creator_profile.html">Creator Profile</a>
                 </li>
             </ul>
         </nav>
-    </header>
+    </div>
+</header>
+
+<!-- Marquee for Instagram Link -->
+<marquee>Follow me on IG: @getsersurbakti</marquee>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -355,7 +489,7 @@
             <!-- Comparative Chart Section -->
             <div id="chart" class="section-content">
                 <h5 class="text-center">&#x1F4C8; Comparative Chart: Balance With Vs Without Inflation Vs Total Capital</h5>
-                <div class="chart-container">
+                <div class="chart-container" >
                     <canvas id="investmentChart" style="width:100%;height:auto;"></canvas>
                 </div>
                 <script>
@@ -411,6 +545,9 @@
         <div class="text-center mt-4">
             <button class="btn btn-primary print-btn" onclick="window.print()">Print Report</button>
         </div>
+        <div class="text-center mt-4">
+            <h2></h2>
+        </div>
     </div>
 
     <script>
@@ -431,6 +568,29 @@
             element.classList.remove('inactive');
             element.classList.add('active');
         }
-    </script>cd
+    </script>
+</body>
+
+
+<footer>
+    <nav>
+        <ul style="list-style-type: none; padding: 0; margin: 0;">
+            <li style="display: inline; margin-right: 15px;">
+                <a href="#contact">Contact Information</a>
+            </li>
+            <li style="display: inline; margin-right: 15px;">
+                <a href="#faqs">FAQs</a>
+            </li>
+            <li style="display: inline;">
+                <a href="#support">Support</a>
+            </li>
+        </ul>
+    </nav>
+    <p>&copy; 2024 Getser Surbakti. All rights reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
