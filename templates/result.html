@@ -1,546 +1,605 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investment Calculator</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Calculator</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
 <style>
-     /* General body styling */
-     body {
-        font-family: Arial, sans-serif;
-    }
+/* General body styling */
+body {
+font-family: Arial, sans-serif;
+}
 
-    /* Header styling */
-    header {
-    background-color: #070303; /* Dark background for contrast */
-    padding: 20px 0;
-    color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for a modern feel */
-    }
-    .header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    }
-    .header-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #fff;
-    margin-bottom: 25px;
-    }
-    nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    }
-    
+/* Header styling */
+header {
+background-color: #070303;
+/* Dark background for contrast */
+padding: 20px 0;
+color: #fff;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* Soft shadow for a modern feel */
+}
 
-    /* Title Styling */
-    h1 {
-        font-size: 2.5rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 20px;
-    }
-    
+.header-content {
+max-width: 1200px;
+margin: 0 auto;
+}
 
-    /* Navbar Styling */
-    .nav-item {
-        margin-right: 20px;
-        position: relative;
-    }
+.header-title {
+font-size: 2.5rem;
+font-weight: 700;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: #fff;
+margin-bottom: 25px;
+}
 
-    /* Styling for navigation links */
-    .nav-link {
-        color: white;
-        font-size: 1rem;
-        font-weight: 500;
-        text-decoration: none;
-        transition: color 0.3s ease, transform 0.3s ease;
-        padding: 10px 15px;
-        border-radius: 8px;
-    }
+nav {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 10px;
+}
 
-    .nav-link:hover {
-        color: #ffc107;
-        transform: translateY(-3px);
-    }
-    .nav-link:focus, .nav-link:hover {
-        outline: none; /* Remove the focus outline */
+/* Title Styling */
+h1 {
+font-size: 2.5rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 2px;
+margin-bottom: 20px;
+}
 
-    /* Responsive Navbar */
-    @media (max-width: 768px) {
-        .nav {
-        flex-direction: column;
-        gap: 15px;
-    }
+/* Navbar Styling */
+.nav-item {
+margin-right: 20px;
+position: relative;
+}
 
-         .header-title {
-        font-size: 2rem;
-    }
+/* Styling for navigation links */
+.nav-link {
+color: white;
+font-size: 1rem;
+font-weight: 500;
+text-decoration: none;
+transition: color 0.3s ease, transform 0.3s ease;
+padding: 10px 15px;
+border-radius: 8px;
+}
 
-         .nav-item {
-        text-align: center;
-    }
+.nav-link:hover {
+color: #ffc107;
+transform: translateY(-3px);
+}
 
-        h1 {
-            font-size: 2rem;
-        }
-    }
+.nav-link:focus,
+.nav-link:hover {
+outline: none;
+
+/* Remove the focus outline */
+/* Responsive Navbar */
+@media (max-width: 768px) {
+.nav {
+flex-direction: column;
+gap: 15px;
+}
+
+.header-title {
+font-size: 2rem;
+}
+
+.nav-item {
+text-align: center;
+}
+
+h1 {
+font-size: 2rem;
+}
+}
 </style>
-
 <header>
-    <div class="container">
-        <h1 class="text-center mb-4">Investment Calculator</h1>
+<div class="container">
+<h1 class="text-center mb-4">Investment Calculator</h1>
 </header>
 <style>
-    /* Footer Styling */
-    footer {
-       background-color: #0a0a0a;
-       color: white;
-       padding: 20px;
-       text-align: center;
-   }
+/* Footer Styling */
+footer {
+background-color: #0a0a0a;
+color: white;
+padding: 20px;
+text-align: center;
+}
 
-   footer a {
-       color: white;
-       text-decoration: none;
-       margin-right: 15px;
-   }
+footer a {
+color: white;
+text-decoration: none;
+margin-right: 15px;
+}
 
-   footer a:hover {
-       text-decoration: underline;
-   }
+footer a:hover {
+text-decoration: underline;
+}
 
-   footer p {
-       font-size: 0.875rem;
-       margin-top: 10px;
-   }
-
+footer p {
+font-size: 0.875rem;
+margin-top: 10px;
+}
 </style>
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investment Result</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <style>
-        /* Collapsible section styles */
-        .section-content {
-            display: none;
-        }
-        .section-title {
-            cursor: pointer;
-            font-weight: bold;
-            color: #090b0c;
-        }
-        .section-title:hover {
-            color: #050607;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Result</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* Collapsible section styles */
+.section-content {
+display: none;
+}
 
-        /* Print-specific styles */
-        @media print {
-            /* Hide elements you don't want to print */
-            .btn, .nav-tabs, .section-title, .print-btn {
-                display: none;
-            }
+.section-title {
+cursor: pointer;
+font-weight: bold;
+color: #090b0c;
+}
 
-            /* Ensure the chart and tables are properly sized */
-            #chart, #chart canvas {
-                display: block !important;
-                width: 100% !important;
-                max-width: 700px !important; /* Limit max width of the chart */
-                height: auto !important;
-                margin: 0 auto !important; /* Center the chart */
-            }
+.section-title:hover {
+color: #050607;
+}
 
-            .table {
-                width: 100% !important;
-                max-width: 700px !important; /* Limit max width of tables */
-                margin: 0 auto !important; /* Center the tables */
-                font-size: 10px !important; /* Reduce font size for printing */
-            }
+/* Print-specific styles */
+@media print {
 
-            .table th, .table td {
-                padding: 6px !important; /* Adjust padding for smaller print layout */
-                text-align: center; /* Center text in table cells */
-            }
+/* Hide elements you don't want to print */
+.btn,
+.nav-tabs,
+.section-title,
+.print-btn {
+display: none;
+}
 
-            body {
-                font-size: 12px;
-                padding: 10px;
-            }
+/* Ensure the chart and tables are properly sized */
+#chart,
+#chart canvas {
+display: block !important;
+width: 100% !important;
+max-width: 700px !important;
+/* Limit max width of the chart */
+height: auto !important;
+margin: 0 auto !important;
+/* Center the chart */
+}
 
-            .container {
-                padding: 0;
-            }
+.table {
+width: 100% !important;
+max-width: 700px !important;
+/* Limit max width of tables */
+margin: 0 auto !important;
+/* Center the tables */
+font-size: 10px !important;
+/* Reduce font size for printing */
+}
 
-            /* Make sure sections are visible and formatted correctly */
-            .section-content {
-                display: block !important;
-                margin-bottom: 15px; /* Add space between sections */
-            }
+.table th,
+.table td {
+padding: 6px !important;
+/* Adjust padding for smaller print layout */
+text-align: center;
+/* Center text in table cells */
+}
 
-            /* Adjust overall print layout */
-            .row {
-                margin-bottom: 15px;
-            }
+body {
+font-size: 12px;
+padding: 10px;
+}
 
-            h1, h4 {
-                font-size: 16px;
-                text-align: center;
-            }
+.container {
+padding: 0;
+}
 
-            .nav-tabs {
-                display: none; /* Hide navigation tabs in print */
-            }
+/* Make sure sections are visible and formatted correctly */
+.section-content {
+display: block !important;
+margin-bottom: 15px;
+/* Add space between sections */
+}
 
-            .text-center {
-                text-align: center !important;
-            }
-        }
+/* Adjust overall print layout */
+.row {
+margin-bottom: 15px;
+}
 
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .table th, .table td {
-                padding: 5px;
-            }
-            .container {
-                padding: 12px;
-            }
-            .nav-tabs {
-                flex-direction: column;
-                margin-top: 20px;
-            }
-            .nav-link {
-                font-size: 16px;
-                padding: 12px;
-                margin-bottom: 10px;
-            }
-            .nav-item {
-                margin: 5px 0;
-                padding: 0px;
-            }
-        }
+h1,
+h4 {
+font-size: 16px;
+text-align: center;
+}
 
-        /* Horizontal navigation style for large screens */
-        @media (min-width: 768px) {
-            .nav-tabs {
-                display: flex;
-                justify-content: space-around;
-                margin-bottom: 20px;
-            }
-            .nav-item {
-                margin: 0 10px;
-            }
-            .nav-link {
-                padding: 10px 20px;
-                background-color: #070808;
-                color: white;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            .nav-link:hover {
-                background-color: #07080a;
-            }
-        }
+.nav-tabs {
+display: none;
+/* Hide navigation tabs in print */
+}
 
-        /* Active class style for navigation */
-        .nav-link.active {
-            background-color: #28a745;  /* Green color for active state */
-            color: white;
-        }
-        .nav-link.inactive {
-            background-color: #070c11;  /* Blue color for inactive state */
-            color: white;
-        }
+.text-center {
+text-align: center !important;
+}
+}
 
-        /* Flexbox layout for chart and tables */
-        .chart-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: auto;
-            margin-top: 20px;
-        }
-        #chart {
-            width: 100%;
-            max-width: 700px;
-            height: 300px;
-        }
-    </style>
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+
+.table th,
+.table td {
+padding: 5px;
+}
+
+.container {
+padding: 12px;
+}
+
+.nav-tabs {
+flex-direction: column;
+margin-top: 20px;
+}
+
+.nav-link {
+font-size: 16px;
+padding: 12px;
+margin-bottom: 10px;
+}
+
+.nav-item {
+margin: 5px 0;
+padding: 0px;
+}
+}
+
+/* Horizontal navigation style for large screens */
+@media (min-width: 768px) {
+.nav-tabs {
+display: flex;
+justify-content: space-around;
+margin-bottom: 20px;
+}
+
+.nav-item {
+margin: 0 10px;
+}
+
+.nav-link {
+padding: 10px 20px;
+background-color: #070808;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.nav-link:hover {
+background-color: #07080a;
+}
+}
+
+/* Active class style for navigation */
+.nav-link.active {
+background-color: #28a745;
+/* Green color for active state */
+color: white;
+}
+
+.nav-link.inactive {
+background-color: #070c11;
+/* Blue color for inactive state */
+color: white;
+}
+
+/* Flexbox layout for chart and tables */
+.chart-container {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: auto;
+margin-top: 20px;
+}
+
+#chart {
+width: 100%;
+max-width: 700px;
+height: 300px;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-
-        <!-- Detailed Inputs Summary -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <h4 class="text-center mb-4">&#x1F310;Investment Inputs:</h4>
-                <!-- Investment Inputs Table -->
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Input Variables</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Initial Amount</td>
-                                <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Annual Rate</td>
-                                <td>{{'{:,.1f}'.format(annual_rate*100)}}%</td>
-                            </tr>
-                            <tr>
-                                <td>Years</td>
-                                <td>{{ years }} years</td>
-                            </tr>
-                            <tr>
-                                <td>Contribution Amount</td>
-                                <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount) }} {{ contribution_frequency }}</td>
-                            </tr>
-                            <tr>
-                                <td>Inflation Rate</td>
-                                <td>{{'{:,.1f}'.format(inflation_rate*100)}}%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Summarry of Capital -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <h4 class="text-center mb-4">&#x1F310;Total Money Invested:</h4>
-                <!-- Summary of Capital -->
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Capital Type</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Principal</td>
-                                <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Total Contributions </td>
-                                <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount * contribution_n * years) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Total Capital (Principal + Total Contributions)</td>
-                                <td>{{ currency }} {{ '{:,.0f}'.format(principal + (contribution_amount * contribution_n * years)) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Summary of Balances -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <h4 class="text-center mb-4">&#x1F310;Summary of Balances:</h4>
-                <!-- Summary of Balances Table -->
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Balance Type</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Final Balance Without Inflation</td>
-                                <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_without_inflation) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Final Balance With Inflation</td>
-                                <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_with_inflation) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Horizontal Navigation for Sections -->
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="javascript:void(0);" onclick="toggleSection('balance-without-inflation', this)">&#x1F4CA; Balance Without Inflation</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('balance-with-inflation', this)">&#x1F4CA; Balance With Inflation</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('chart', this)">&#x1F4C8; Comparative Chart</a>
-            </li>
-        </ul>
-
-        <!-- Section Content -->
-        <div class="mt-4">
-            <!-- Balance Without Inflation Section -->
-            <div id="balance-without-inflation" class="section-content">
-                <h5 class="text-center">&#x1F4CA; Table 1: Balance Without Inflation </h5>
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Year</th>
-                                <th>Starting Balance</th>
-                                <th>Interest Earned</th>
-                                <th>Contributions</th>
-                                <th>Ending Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for year, details in yearly_summary_without_inflation.items() %}
-                            <tr>
-                                <td>{{ year }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Balance With Inflation Section -->
-            <div id="balance-with-inflation" class="section-content">
-                <h5 class="text-center">&#x1F4CA; Table 2: Balance With Inflation </h5>
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Year</th>
-                                <th>Starting Balance</th>
-                                <th>Interest Earned</th>
-                                <th>Contributions</th>
-                                <th>Ending Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for year, details in yearly_summary_with_inflation.items() %}
-                            <tr>
-                                <td>{{ year }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
-                                <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Comparative Chart Section -->
-            <div id="chart" class="section-content">
-                <h5 class="text-center">&#x1F4C8; Comparative Chart: Balance With Vs Without Inflation Vs Total Capital</h5>
-                <div class="chart-container" >
-                    <canvas id="investmentChart" style="width:100%;height:auto;"></canvas>
-                </div>
-                <script>
-                    var ctx = document.getElementById('investmentChart').getContext('2d');
-                    
-                    // Define the principal and yearly contribution gradient
-                    var principal = {{ principal }};
-                    var yearly_contribution = {{ contribution_amount }} * 
-                        ({{ 1 if contribution_frequency == 'annually' else 12 if contribution_frequency == 'monthly' else 4 if contribution_frequency == 'quarterly' else 1 }});
-
-                    // Generate the total capital data (linear function)
-                    var totalCapitalData = Array.from({ length: {{ years }} }, (_, i) => principal + yearly_contribution * (i + 1));
-
-                    // Create the chart
-                    var investmentChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: [{% for year in range(1, years + 1) %}{{ year }},{% endfor %}],
-                            datasets: [
-                                {
-                                    label: 'Balance Without Inflation',
-                                    data: [{% for year, details in yearly_summary_without_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
-                                    borderColor: 'blue',
-                                    fill: false
-                                },
-                                {
-                                    label: 'Balance With Inflation',
-                                    data: [{% for year, details in yearly_summary_with_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
-                                    borderColor: 'red',
-                                    fill: false
-                                },
-                                {
-                                    label: 'Total Capital (Principal + Contributions)',
-                                    data: totalCapitalData,
-                                    borderColor: 'green',
-                                    borderDash: [5, 5],
-                                    fill: false
-                                }
-                            ]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: { beginAtZero: true }
-                            }
-                        }
-                    });
-                </script>
-            </div>
-        </div>
-
-        <!-- "Calculate Again" Button -->
-        <div class="text-center mt-4">
-            <button class="btn btn-primary print-btn" onclick="window.print()">Print Report</button>
-        </div>
-        <div class="text-center mt-4">
-            <h2></h2>
-        </div>
-    </div>
-
-    <script>
-        function toggleSection(id, element) {
-            var sections = document.querySelectorAll('.section-content');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-
-            var section = document.getElementById(id);
-            section.style.display = 'block';
-
-            var navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(function(link) {
-                link.classList.remove('active');
-                link.classList.add('inactive');
-            });
-            element.classList.remove('inactive');
-            element.classList.add('active');
+<div class="container">
+<!-- Detailed Inputs Summary -->
+<div class="row mb-4">
+<div class="col-12">
+<h4 class="text-center mb-4">&#x1F310;Investment Inputs:</h4>
+<!-- Investment Inputs Table -->
+<div class="table-responsive">
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+        <th>Input Variables</th>
+        <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>Initial Amount</td>
+        <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
+        </tr>
+        <tr>
+        <td>Annual Rate</td>
+        <td>{{'{:,.1f}'.format(annual_rate*100)}}%</td>
+        </tr>
+        <tr>
+        <td>Years</td>
+        <td>{{ years }} years</td>
+        </tr>
+        <tr>
+        <td>Contribution Amount</td>
+        <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount) }} {{ contribution_frequency }}</td>
+        </tr>
+        <tr>
+        <td>Inflation Rate</td>
+        <td>{{'{:,.1f}'.format(inflation_rate*100)}}%</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+</div>
+<!-- Summarry of Capital -->
+<div class="row mb-4">
+<div class="col-12">
+<h4 class="text-center mb-4">&#x1F310;Total Money Invested:</h4>
+<!-- Summary of Capital -->
+<div class="table-responsive">
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+        <th>Capital Type</th>
+        <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>Principal</td>
+        <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
+        </tr>
+        <tr>
+        <td>Total Contributions </td>
+        <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount * contribution_n * years) }}</td>
+        </tr>
+        <tr>
+        <td>Total Capital (Principal + Total Contributions)</td>
+        <td>{{ currency }} {{ '{:,.0f}'.format(principal + (contribution_amount * contribution_n * years)) }}</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+</div>
+<!-- Summary of Balances -->
+<div class="row mb-4">
+<div class="col-12">
+<h4 class="text-center mb-4">&#x1F310;Summary of Balances:</h4>
+<!-- Summary of Balances Table -->
+<div class="table-responsive">
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+        <th>Balance Type</th>
+        <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>Final Balance Without Inflation</td>
+        <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_without_inflation) }}</td>
+        </tr>
+        <tr>
+        <td>Final Balance With Inflation</td>
+        <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_with_inflation) }}</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+</div>
+<!-- Horizontal Navigation for Sections -->
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a class="nav-link active" href="javascript:void(0);" onclick="toggleSection('balance-without-inflation', this)">&#x1F4CA; Balance Without Inflation</a>
+</li>
+<li class="nav-item">
+<a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('balance-with-inflation', this)">&#x1F4CA; Balance With Inflation</a>
+</li>
+<li class="nav-item">
+<a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('chart', this)">&#x1F4C8; Comparative Chart</a>
+</li>
+</ul>
+<!-- Section Content -->
+<div class="mt-4">
+<!-- Balance Without Inflation Section -->
+<div id="balance-without-inflation" class="section-content">
+<h5 class="text-center">&#x1F4CA; Table 1: Balance Without Inflation </h5>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+        <th>Year</th>
+        <th>Starting Balance</th>
+        <th>Interest Earned</th>
+        <th>Contributions</th>
+        <th>Ending Balance</th>
+        </tr>
+    </thead>
+    <tbody> {% for year, details in yearly_summary_without_inflation.items() %} <tr>
+        <td>{{ year }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
+        </tr> {% endfor %} </tbody>
+    </table>
+</div>
+</div>
+<!-- Balance With Inflation Section -->
+<div id="balance-with-inflation" class="section-content">
+<h5 class="text-center">&#x1F4CA; Table 2: Balance With Inflation </h5>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+        <th>Year</th>
+        <th>Starting Balance</th>
+        <th>Interest Earned</th>
+        <th>Contributions</th>
+        <th>Ending Balance</th>
+        </tr>
+    </thead>
+    <tbody> {% for year, details in yearly_summary_with_inflation.items() %} <tr>
+        <td>{{ year }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
+        <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
+        </tr> {% endfor %} </tbody>
+    </table>
+</div>
+</div>
+<!-- Comparative Chart Section -->
+<div id="chart" class="section-content">
+<h5 class="text-center">&#x1F4C8; Comparative Chart: Balance With Vs Without Inflation Vs Total Capital</h5>
+<div class="chart-container">
+    <canvas id="investmentChart" style="width:100%;height:auto;"></canvas>
+</div>
+<script>
+    var ctx = document.getElementById('investmentChart').getContext('2d');
+    // Define the principal and yearly contribution gradient
+    var principal = {
+    {
+        principal
+    }
+    };
+    var yearly_contribution = {
+    {
+        contribution_amount
+    }
+    }*({
+    {
+        1
+        if contribution_frequency == 'annually'
+        else 12
+        if contribution_frequency == 'monthly'
+        else 4
+        if contribution_frequency == 'quarterly'
+        else 1
+    }
+    });
+    // Generate the total capital data (linear function)
+    var totalCapitalData = Array.from({
+    length: {
+        {
+        years
         }
-    </script>
+    }
+    }, (_, i) => principal + yearly_contribution * (i + 1));
+    // Create the chart
+    var investmentChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [{
+        %
+        for year in range(1, years + 1) %
+        } {
+        {
+            year
+        }
+        }, {
+        % endfor %
+        }],
+        datasets: [{
+        label: 'Balance Without Inflation',
+        data: [{
+            %
+            for year,
+            details in yearly_summary_without_inflation.items() %
+        } {
+            {
+            details['ending_balance']
+            }
+        }, {
+            % endfor %
+        }],
+        borderColor: 'blue',
+        fill: false
+        }, {
+        label: 'Balance With Inflation',
+        data: [{
+            %
+            for year,
+            details in yearly_summary_with_inflation.items() %
+        } {
+            {
+            details['ending_balance']
+            }
+        }, {
+            % endfor %
+        }],
+        borderColor: 'red',
+        fill: false
+        }, {
+        label: 'Total Capital (Principal + Contributions)',
+        data: totalCapitalData,
+        borderColor: 'green',
+        borderDash: [5, 5],
+        fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+</script>
+</div>
+</div>
+<!-- "Calculate Again" Button -->
+<div class="text-center mt-4">
+<button class="btn btn-primary print-btn" onclick="window.print()">Print Report</button>
+</div>
+<div class="text-center mt-4">
+<h2></h2>
+</div>
+</div>
+<script>
+function toggleSection(id, element) {
+var sections = document.querySelectorAll('.section-content');
+sections.forEach(function(section) {
+section.style.display = 'none';
+});
+var section = document.getElementById(id);
+section.style.display = 'block';
+var navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(function(link) {
+link.classList.remove('active');
+link.classList.add('inactive');
+});
+element.classList.remove('inactive');
+element.classList.add('active');
+}
+</script>
 </body>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -8,61 +8,55 @@
     <style>
       /* General body styling */
       body {
-        font-family: Arial, sans-serif;
+        font-family: 'Arial', sans-serif;
         line-height: 1.6;
-        margin: 20px;
-        background-color: #f4f4f4;
+        background-color: #f4f7fc;
         color: #333;
+        margin: 0;
+        padding: 0;
       }
 
       /* Header styling */
       header {
-        background-color: #070101;
-        padding: 20px 0;
-        color: #fff;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        background-color: #007bff;
+        padding: 30px 0;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
 
       .header-title {
-        font-size: 2.5rem;
-        font-weight: 700;
+        font-size: 3rem;
+        font-weight: bold;
         letter-spacing: 2px;
+        margin-bottom: 20px;
         text-transform: uppercase;
-        margin-bottom: 25px;
-      }
-
-      nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
       }
 
       h1 {
         text-align: center;
         font-size: 2.5rem;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
         margin-bottom: 20px;
       }
 
       h2 {
         color: #2980b9;
+        margin-top: 30px;
       }
 
       .formula {
-        font-size: 1.2em;
-        margin: 10px 0;
-        padding: 10px;
+        font-size: 1.1em;
+        margin: 20px 0;
+        padding: 20px;
         background-color: #ecf0f1;
         border: 1px solid #bdc3c7;
-        border-radius: 5px;
-        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
       .formula p {
-        margin: 5px 0;
+        margin: 10px 0;
       }
 
       .formula ul {
@@ -71,18 +65,48 @@
       }
 
       .formula li {
-        padding: 5px 0;
+        padding: 10px 0;
+        font-size: 1.1em;
       }
 
-      /* Responsive Navbar */
-      @media (max-width: 768px) {
-        nav {
-          flex-direction: column;
-          gap: 15px;
-        }
+      /* Form styling */
+      form {
+        background-color: #fff;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-top: 40px;
+      }
 
+      .form-group label {
+        font-size: 1.1em;
+      }
+
+      .form-control {
+        font-size: 1.1em;
+        padding: 12px;
+        border-radius: 5px;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 15px;
+        font-size: 1.2em;
+        width: 100%;
+        border-radius: 5px;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
         .header-title {
-          font-size: 2rem;
+          font-size: 2.2rem;
         }
 
         h1 {
@@ -90,13 +114,14 @@
         }
       }
 
-      /* Marquee Styling */
+      /* Marquee styling */
       marquee {
-        font-size: 1rem;
+        font-size: 1.2rem;
         padding: 10px;
-        background-color: #0a0a0a;
+        background-color: #333;
         color: white;
         margin-bottom: 20px;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -112,9 +137,7 @@
       <h2>1. Nilai Masa Depan dengan Pemajemukan (Compound Interest)</h2>
       <div class="formula">
         <p>A = P × (1 + r/n) ^ (n × t)</p>
-        <p>
-          <strong>Dimana:</strong>
-        </p>
+        <p><strong>Dimana:</strong></p>
         <ul>
           <li>A = Nilai investasi di masa depan (nilai akhir)</li>
           <li>P = Jumlah awal investasi (Principal)</li>
@@ -127,9 +150,7 @@
       <h2>2. Nilai Masa Depan dengan Kontribusi Berkala</h2>
       <div class="formula">
         <p>A = P × (1 + r/n) ^ (n × t) + C × ((1 + r/n) ^ (n × t) - 1) / (r/n)</p>
-        <p>
-          <strong>Dimana:</strong>
-        </p>
+        <p><strong>Dimana:</strong></p>
         <ul>
           <li>A = Nilai investasi di masa depan</li>
           <li>P = Jumlah awal investasi</li>
@@ -143,11 +164,9 @@
       <h2>3. Menyesuaikan dengan Inflasi</h2>
       <div class="formula">
         <p>A <sub>riil</sub> = A / (1 + i) ^ t </p>
-        <p>
-          <strong>Dimana:</strong>
-        </p>
+        <p><strong>Dimana:</strong></p>
         <ul>
-          <li>A <sub>riil</sub> = Nilai investasi yang disesuaikan dengan inflasi </li>
+          <li>A <sub>riil</sub> = Nilai investasi yang disesuaikan dengan inflasi</li>
           <li>A = Nilai masa depan investasi tanpa inflasi</li>
           <li>i = Tingkat inflasi tahunan</li>
           <li>t = Durasi investasi dalam tahun</li>
@@ -156,7 +175,7 @@
       <!-- Investment Form -->
       <form method="POST">
         <div class="form-group">
-          <label for="currency">1️⃣ <b>Step 1:</b> Currency </label>
+          <label for="currency">1️⃣ <b>Step 1:</b> Currency</label>
           <select id="currency" name="currency" class="form-control" required>
             <option value="">Pilih mata uang yang digunakan</option>
             <option value="Rp">Rp Indonesia</option>
@@ -169,23 +188,23 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="principal">2️⃣ <b>Step 2:</b> Initial Investment Amount </label>
+          <label for="principal">2️⃣ <b>Step 2:</b> Initial Investment Amount</label>
           <input type="number" id="principal" name="principal" class="form-control" placeholder="Mau investasi berapa?" step="0.01" required>
         </div>
         <div class="form-group">
-          <label for="annual_rate">3️⃣ <b>Step 3:</b> Estimated Annual Rate of Return (%) </label>
+          <label for="annual_rate">3️⃣ <b>Step 3:</b> Estimated Annual Rate of Return (%)</label>
           <input type="number" id="annual_rate" name="annual_rate" class="form-control" placeholder="Kira-kira berapa persen return tahunannya?" step="0.01" required>
         </div>
         <div class="form-group">
-          <label for="years">4️⃣ <b>Step 4:</b> Years of Growth </label>
+          <label for="years">4️⃣ <b>Step 4:</b> Years of Growth</label>
           <input type="number" id="years" name="years" class="form-control" placeholder="Jangka waktu investasinya berapa lama?" required>
         </div>
         <div class="form-group">
-          <label for="contribution_amount">5️⃣ <b>Step 5:</b> Contribution Amount </label>
+          <label for="contribution_amount">5️⃣ <b>Step 5:</b> Contribution Amount</label>
           <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Ada rencana buat nyetor tambahan investasi?" required>
         </div>
         <div class="form-group">
-          <label for="contribution_frequency">6️⃣ <b>Step 6:</b> Contribution Frequency </label>
+          <label for="contribution_frequency">6️⃣ <b>Step 6:</b> Contribution Frequency</label>
           <select id="contribution_frequency" name="contribution_frequency" class="form-control" required>
             <option value=" ">Setor tambahannya seberapa sering?</option>
             <option value="annually">Rutin setiap setahun sekali</option>
@@ -197,7 +216,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="compounding_frequency">7️⃣ <b>Step 7:</b> Compounding Frequency </label>
+          <label for="compounding_frequency">7️⃣ <b>Step 7:</b> Compounding Frequency</label>
           <select id="compounding_frequency" name="compounding_frequency" class="form-control" required>
             <option value=" ">Pilih jenis pemajemukan bunga-nya</option>
             <option value="annually">Tahunan (Annually)</option>
@@ -209,12 +228,13 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="inflation_rate">8️⃣ <b>Step 8:</b> Inflation Rate (%) </label>
+          <label for="inflation_rate">8️⃣ <b>Step 8:</b> Inflation Rate (%)</label>
           <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Kira-kira berapa besar inflasi-nya?" step="0.01" required>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+        <button type="submit" class="btn btn-primary">Calculate</button>
       </form>
     </main>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
