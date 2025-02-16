@@ -1,189 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Financial Management Tools</title>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Management Tools</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #070101;
+            padding: 20px 0;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #2980b9;
+        }
+
+        .formula {
+            font-size: 1.2em;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .formula p {
+            margin: 5px 0;
+        }
+
+        .formula ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .formula li {
+            padding: 5px 0;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-title {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Marquee Styling */
+        marquee {
+            font-size: 1rem;
+            padding: 10px;
+            background-color: #0a0a0a;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+    </style>
 </head>
 <body>
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 20px;
-        background-color: #f4f4f4;
-        color: #333;
-    }
-    h1 {
-        text-align: center;
-        color: #2c3e50;
-    }
-    h2 {
-        color: #2980b9;
-    }
-    .formula {
-        font-size: 1.2em;
-        margin: 10px 0;
-        padding: 10px;
-        background-color: #ecf0f1;
-        border: 1px solid #bdc3c7;
-        border-radius: 5px;
-        text-align: center;
-    }
-    .formula p {
-        margin: 5px 0;
-    }
-/* General body styling */
-body {
-font-family: Arial, sans-serif;
-}
-
-/* Header styling */
-header {
-background-color: #070101; /* Dark background for contrast */
-padding: 20px 0;
-color: #fff;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for a modern feel */
-}
-.header-content {
-max-width: 1200px;
-margin: 0 auto;
-}
-.header-title {
-font-size: 2.5rem;
-font-weight: 700;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: #fff;
-margin-bottom: 25px;
-}
-nav {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 10px;
-}
-
-
-/* Title Styling */
-h1 {
-font-size: 2.5rem;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 2px;
-margin-bottom: 20px;
-}
-
-
-/* Navbar Styling */
-.nav-item {
-margin-right: 20px;
-position: relative;
-}
-
-/* Styling for navigation links */
-.nav-link {
-color: white;
-font-size: 1rem;
-font-weight: 500;
-text-decoration: none;
-transition: color 0.3s ease, transform 0.3s ease;
-padding: 10px 15px;
-border-radius: 8px;
-}
-
-.nav-link:hover {
-color: #ffc107;
-transform: translateY(-3px);
-}
-.nav-link:focus, .nav-link:hover {
-outline: none; /* Remove the focus outline */
-
-/* Responsive Navbar */
-@media (max-width: 768px) {
-.nav {
-flex-direction: column;
-gap: 15px;
-}
-
-    .header-title {
-font-size: 2rem;
-}
-
-    .nav-item {
-text-align: center;
-}
-
-h1 {
-    font-size: 2rem;
-}
-}
-/* Mobile-friendly Marquee */
-marquee {
-font-size: 1rem;
-padding: 10px;
-background-color: #0a0a0a;
-color: white;
-margin-bottom: 20px;
-border: 0px solid rgb(241, 240, 240); 
-}
-</style>
-
 <header>
-<div class="container">
-<h1 class="text-center mb-4">Investment Calculator</h1>
-</div>
-<body>
-<h1>Rumus Investasi dan Pemajemukan</h1>
-
-<h2>1. Nilai Masa Depan dengan Pemajemukan (Compound Interest)</h2>
-<div class="formula">
-    <p>A = P × (1 + r/n) ^ (n × t)</p>
-    <p><strong>Dimana:</strong></p>
-    <ul>
-        <li>A = Nilai investasi di masa depan (nilai akhir)</li>
-        <li>P = Jumlah awal investasi (Principal)</li>
-        <li>r = Tingkat pengembalian tahunan (annual interest rate)</li>
-        <li>n = Jumlah pemajemukan per tahun (contoh, jika bunga dihitung bulanan maka n = 12)</li>
-        <li>t = Durasi investasi dalam tahun (time)</li>
-    </ul>
-</div>
-
-<h2>2. Nilai Masa Depan dengan Kontribusi Berkala</h2>
-<div class="formula">
-    <p>A = P × (1 + r/n) ^ (n × t) + C × ((1 + r/n) ^ (n × t) - 1) / (r/n)</p>
-    <p><strong>Dimana:</strong></p>
-    <ul>
-        <li>A = Nilai investasi di masa depan</li>
-        <li>P = Jumlah awal investasi</li>
-        <li>r = Tingkat pengembalian tahunan</li>
-        <li>n = Jumlah pemajemukan per tahun</li>
-        <li>t = Durasi investasi dalam tahun</li>
-        <li>C = Kontribusi berkala (misalnya, kontribusi bulanan atau tahunan)</li>
-    </ul>
-</div>
-
-<h2>3. Menyesuaikan dengan Inflasi</h2>
-<div class="formula">
-    <p>A<sub>riil</sub> = A / (1 + i) ^ t</p>
-    <p><strong>Dimana:</strong></p>
-    <ul>
-        <li>A<sub>riil</sub> = Nilai investasi yang disesuaikan dengan inflasi</li>
-        <li>A = Nilai masa depan investasi tanpa inflasi</li>
-        <li>i = Tingkat inflasi tahunan</li>
-        <li>t = Durasi investasi dalam tahun</li>
-    </ul>
-</div>
-</body>
+    <div class="container">
+        <h1 class="header-title">Investment Calculator</h1>
+    </div>
 </header>
 
+<main class="container">
+    <h1>Rumus Investasi dan Pemajemukan</h1>
 
-<!-- Marquee for Instagram Link -->
+    <!-- Compound Interest Formula -->
+    <h2>1. Nilai Masa Depan dengan Pemajemukan (Compound Interest)</h2>
+    <div class="formula">
+        <p>A = P × (1 + r/n) ^ (n × t)</p>
+        <p><strong>Dimana:</strong></p>
+        <ul>
+            <li>A = Nilai investasi di masa depan (nilai akhir)</li>
+            <li>P = Jumlah awal investasi (Principal)</li>
+            <li>r = Tingkat pengembalian tahunan (annual interest rate)</li>
+            <li>n = Jumlah pemajemukan per tahun (contoh, jika bunga dihitung bulanan maka n = 12)</li>
+            <li>t = Durasi investasi dalam tahun (time)</li>
+        </ul>
+    </div>
 
-<body>
-<div class="container">
+    <!-- Future Value with Periodic Contributions Formula -->
+    <h2>2. Nilai Masa Depan dengan Kontribusi Berkala</h2>
+    <div class="formula">
+        <p>A = P × (1 + r/n) ^ (n × t) + C × ((1 + r/n) ^ (n × t) - 1) / (r/n)</p>
+        <p><strong>Dimana:</strong></p>
+        <ul>
+            <li>A = Nilai investasi di masa depan</li>
+            <li>P = Jumlah awal investasi</li>
+            <li>r = Tingkat pengembalian tahunan</li>
+            <li>n = Jumlah pemajemukan per tahun</li>
+            <li>t = Durasi investasi dalam tahun</li>
+            <li>C = Kontribusi berkala (misalnya, kontribusi bulanan atau tahunan)</li>
+        </ul>
+    </div>
+
+    <!-- Adjusting for Inflation Formula -->
+    <h2>3. Menyesuaikan dengan Inflasi</h2>
+    <div class="formula">
+        <p>A<sub>riil</sub> = A / (1 + i) ^ t</p>
+        <p><strong>Dimana:</strong></p>
+        <ul>
+            <li>A<sub>riil</sub> = Nilai investasi yang disesuaikan dengan inflasi</li>
+            <li>A = Nilai masa depan investasi tanpa inflasi</li>
+            <li>i = Tingkat inflasi tahunan</li>
+            <li>t = Durasi investasi dalam tahun</li>
+        </ul>
+    </div>
+
+    <!-- Investment Form -->
     <form method="POST">
         <div class="form-group">
             <label for="currency">1️⃣ <b>Step 1:</b> Currency</label>
@@ -212,7 +183,7 @@ border: 0px solid rgb(241, 240, 240);
         </div>
         <div class="form-group">
             <label for="contribution_amount">5️⃣ <b>Step 5:</b> Contribution Amount</label>
-            <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Ada rencana buat nyetor tambahan investasi? " required>
+            <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Ada rencana buat nyetor tambahan investasi?" required>
         </div>
         <div class="form-group">
             <label for="contribution_frequency">6️⃣ <b>Step 6:</b> Contribution Frequency</label>
@@ -242,16 +213,14 @@ border: 0px solid rgb(241, 240, 240);
             <label for="inflation_rate">8️⃣ <b>Step 8:</b> Inflation Rate (%)</label>
             <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Kira-kira berapa besar inflasi-nya?" step="0.01" required>
         </div>
-        
+
         <button type="submit" class="btn btn-primary btn-block">Calculate</button>
-        <div class="form-group">
-            <label for="inflation_rate"></label>
-        </div>
     </form>
-</div>
-</body>
+</main>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
