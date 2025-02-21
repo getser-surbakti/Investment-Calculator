@@ -1,259 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Financial Management Tools</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    /* General body styling */
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      background-color: #f4f7fc;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Calculator Pro</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
 
-    /* Header styling */
-    header {
-      background-color: #007bff;
-      padding: 30px 0;
-      color: white;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+body {
+font-family: 'Comic Neue', cursive;
+background: #e6ecef;
+color: #333;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
 
-    .header-title {
-      font-size: 3rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
+.app-container {
+width: 100%;
+max-width: 900px;
+background: #fff;
+border-radius: 25px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+margin: 20px;
+overflow: hidden;
+border: 3px solid #186B61;
+}
 
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
+header {
+background: linear-gradient(135deg, #041E4F, #186B61);
+padding: 30px;
+text-align: center;
+}
 
-    h2 {
-      color: #2980b9;
-      margin-top: 30px;
-    }
+.header-title {
+font-size: 3rem;
+font-weight: 700;
+color: #fff;
+letter-spacing: 2px;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+margin: 0;
+}
 
-    /* Formula styling */
-    .formula {
-      font-size: 1.25em;
-      margin: 20px 0;
-      padding: 20px;
-      background-color: #ecf0f1;
-      border: 1px solid #bdc3c7;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+main {
+padding: 30px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
 
-    .formula p {
-      margin: 10px 0;
-    }
+.info-section {
+font-size: 0.9rem;
+color: #555;
+background: #f0f5f5;
+padding: 15px;
+border-radius: 10px;
+border: 2px dashed #186B61;
+text-align: center;
+}
 
-    .formula ul {
-      list-style: none;
-      padding: 0;
-    }
+.info-section h1 {
+font-size: 1.2rem;
+font-weight: 700;
+color: #041E4F;
+margin-bottom: 10px;
+}
 
-    .formula li {
-      padding: 10px 0;
-      font-size: 1.1em;
-    }
+.formula-compact {
+margin: 10px 0;
+}
 
-    /* Form styling */
-    form {
-      background-color: #fff;
-      padding: 30px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      margin-top: 40px;
-      transition: transform 0.3s ease;
-    }
+.formula-compact h2 {
+font-size: 1rem;
+color: #186B61;
+margin: 10px 0 5px;
+}
 
-    form:hover {
-      transform: translateY(-5px);
-    }
+.formula-text {
+font-size: 1rem;
+color: #041E4F;
+background: #fff;
+padding: 8px;
+border-radius: 8px;
+border: 2px dashed #041E4F;
+line-height: 1.5;
+display: inline-block;
+}
 
-    .form-group label {
-      font-size: 1.1em;
-    }
+.formula-text sup, .formula-text sub {
+font-size: 0.7rem;
+color: #186B61;
+}
 
-    .form-control {
-      font-size: 1.1em;
-      padding: 12px;
-      border-radius: 5px;
-      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+form {
+background: #f0f5f5;
+padding: 30px;
+border-radius: 15px;
+border: 3px solid #186B61;
+box-shadow: 0 5px 20px rgba(24, 107, 97, 0.2);
+}
 
-    .btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-      padding: 15px;
-      font-size: 1.2em;
-      width: 100%;
-      border-radius: 5px;
-    }
+.form-group {
+margin-bottom: 5px;
+}
 
-    .btn-primary:hover {
-      background-color: #0056b3;
-      border-color: #0056b3;
-    }
+.form-group label {
+font-weight: 700;
+color: #041E4F;
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 1.4rem;
+}
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .header-title {
-        font-size: 2.2rem;
-      }
+.form-control {
+background: #fff;
+border: 3px solid #186B61;
+border-radius: 10px;
+padding: 15px;
+color: #333;
+font-size: 1.2rem;
+font-family: 'Comic Neue', cursive;
+transition: all 0.3s ease;
+height: 45px;
+}
 
-      h1 {
-        font-size: 2rem;
-      }
-    }
+.form-control:focus {
+border-color: #041E4F;
+box-shadow: 0 0 8px rgba(4, 30, 79, 0.3);
+background: #fff;
+color: #333;
+}
 
-    /* Marquee styling */
-    marquee {
-      font-size: 1.2rem;
-      padding: 10px;
-      background-color: #333;
-      color: white;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
+.form-control::placeholder {
+color: #999;
 
-    /* LaTeX-like styling for formulas */
-    .latex {
-      font-family: "Courier New", Courier, monospace;
-      font-weight: bold;
-      color: #e74c3c;
-    }
-  </style>
+}
+
+.btn-primary {
+background: #186B61;
+border: none;
+padding: 20px;
+font-size: 1.5rem;
+border-radius: 12px;
+width: 100%;
+font-weight: 700;
+text-transform: uppercase;
+color: #fff;
+transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+background: #041E4F;
+transform: scale(1.05);
+box-shadow: 0 5px 15px rgba(4, 30, 79, 0.4);
+}
+
+@media (max-width: 768px) {
+.app-container {
+margin: 10px;
+border-radius: 15px;
+}
+
+.header-title {
+font-size: 2.2rem;
+}
+
+.info-section h1 {
+font-size: 1rem;
+}
+
+.formula-text {
+font-size: 0.9rem;
+}
+
+.form-group label {
+font-size: 1.2rem;
+}
+
+.form-control {
+font-size: 1rem;
+padding: 12px;
+}
+
+.btn-primary {
+font-size: 1.2rem;
+padding: 15px;
+}
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1 class="header-title">Investment Calculator</h1>
-    </div>
-  </header>
-  <main class="container">
-    <h1>Rumus Investasi dan Pemajemukan</h1>
+<div class="app-container">
+<header>
+<h1 class="header-title">Investment Calculator Pro</h1>
+</header>
+<main>
+<div class="info-section">
+<h1>Rumus Investasi dan Pemajemukan</h1>
+<div class="formula-compact">
+    <h2>1. Compound Interest</h2>
+    <span class="formula-text">A = P × (1 + r ÷ n)<sup>n × t</sup></span>
+</div>
+<div class="formula-compact">
+    <h2>2. With Contributions</h2>
+    <span class="formula-text">A = [P × (1 + r ÷ n)<sup>n × t</sup>] + [C × ((1 + r ÷ n)<sup>n × t</sup> - 1) ÷ (r ÷ n)]</span>
+</div>
+<div class="formula-compact">
+    <h2>3. With Inflation</h2>
+    <span class="formula-text">A<sub>riil</sub> = A ÷ (1 + i)<sup>t</sup></span>
+</div>
+</div>
 
-    <!-- Compound Interest Formula -->
-    <h2>1. Nilai Masa Depan dengan Pemajemukan (Compound Interest)</h2>
-    <div class="formula">
-      <p class="latex">A = P × (1 + r/n) ^ (n × t)</p>
-      <p><strong>Dimana:</strong></p>
-      <ul>
-        <li>A = Nilai investasi di masa depan (nilai akhir)</li>
-        <li>P = Jumlah awal investasi (Principal)</li>
-        <li>r = Tingkat pengembalian tahunan (annual interest rate)</li>
-        <li>n = Jumlah pemajemukan per tahun (contoh, jika bunga dihitung bulanan maka n = 12)</li>
-        <li>t = Durasi investasi dalam tahun (time)</li>
-      </ul>
-    </div>
+<form method="POST">
+<div class="form-group">
+    <label for="currency">1️⃣ <b>Step 1:</b> Currency</label>
+    <select id="currency" name="currency" class="form-control" required>
+        <option value="">Pilih mata uang yang digunakan</option>
+        <option value="Rp">Rp Indonesia</option>
+        <option value="$">$ Dollar</option>
+        <option value="€">€ Euro</option>
+        <option value="£">£ Pound</option>
+        <option value="₹">₹ Rupee</option>
+        <option value="¥">¥ Yen</option>
+        <option value="₣">₣ France</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="principal">2️⃣ <b>Step 2:</b> Initial Investment Amount</label>
+    <input type="number" id="principal" name="principal" class="form-control" placeholder="Mau investasi berapa?" step="0.01" required>
+</div>
+<div class="form-group">
+    <label for="annual_rate">3️⃣ <b>Step 3:</b> Estimated Annual Rate of Return (%)</label>
+    <input type="number" id="annual_rate" name="annual_rate" class="form-control" placeholder="Kira-kira berapa persen return tahunannya?" step="0.01" required>
+</div>
+<div class="form-group">
+    <label for="years">4️⃣ <b>Step 4:</b> Years of Growth</label>
+    <input type="number" id="years" name="years" class="form-control" placeholder="Jangka waktu investasinya berapa lama?" required>
+</div>
+<div class="form-group">
+    <label for="contribution_amount">5️⃣ <b>Step 5:</b> Contribution Amount</label>
+    <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Ada rencana buat nyetor tambahan investasi?" required>
+</div>
+<div class="form-group">
+    <label for="contribution_frequency">6️⃣ <b>Step 6:</b> Contribution Frequency</label>
+    <select id="contribution_frequency" name="contribution_frequency" class="form-control" required>
+        <option value=" ">Setor tambahannya seberapa sering?</option>
+        <option value="annually">Rutin setiap setahun sekali</option>
+        <option value="semi-annually">Rutin setiap 6 bulan sekali</option>
+        <option value="quarterly">Rutin setiap 3 bulan sekali</option>
+        <option value="monthly">Rutin setiap bulan</option>
+        <option value="weekly">Rutin setiap minggu</option>
+        <option value="daily">Rutin setiap hari</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="compounding_frequency">7️⃣ <b>Step 7:</b> Compounding Frequency</label>
+    <select id="compounding_frequency" name="compounding_frequency" class="form-control" required>
+        <option value=" ">Pilih jenis pemajemukan bunga-nya</option>
+        <option value="annually">Tahunan (Annually)</option>
+        <option value="semi-annually">6 bulanan (Semi-annually)</option>
+        <option value="quarterly">3 bulanan (Quarterly)</option>
+        <option value="monthly">Bulanan (Monthly)</option>
+        <option value="weekly">Mingguan (Weekly)</option>
+        <option value="daily">Harian (Daily)</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="inflation_rate">8️⃣ <b>Step 8:</b> Inflation Rate (%)</label>
+    <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Kira-kira berapa besar inflasi-nya?" step="0.01" required>
+</div>
+<button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+</main>
+</div>
 
-    <!-- Future Value with Periodic Contributions Formula -->
-    <h2>2. Nilai Masa Depan dengan Kontribusi Berkala</h2>
-    <div class="formula">
-      <p class="latex">A = P × (1 + r/n) ^ (n × t) + C × ((1 + r/n) ^ (n × t) - 1) / (r/n)</p>
-      <p><strong>Dimana:</strong></p>
-      <ul>
-        <li>A = Nilai investasi di masa depan</li>
-        <li>P = Jumlah awal investasi</li>
-        <li>r = Tingkat pengembalian tahunan</li>
-        <li>n = Jumlah pemajemukan per tahun</li>
-        <li>t = Durasi investasi dalam tahun</li>
-        <li>C = Kontribusi berkala (misalnya, kontribusi bulanan atau tahunan)</li>
-      </ul>
-    </div>
-
-    <!-- Adjusting for Inflation Formula -->
-    <h2>3. Menyesuaikan dengan Inflasi</h2>
-    <div class="formula">
-      <p class="latex">A<sub>riil</sub> = A / (1 + i) ^ t</p>
-      <p><strong>Dimana:</strong></p>
-      <ul>
-        <li>A<sub>riil</sub> = Nilai investasi yang disesuaikan dengan inflasi</li>
-        <li>A = Nilai masa depan investasi tanpa inflasi</li>
-        <li>i = Tingkat inflasi tahunan</li>
-        <li>t = Durasi investasi dalam tahun</li>
-      </ul>
-    </div>
-
-    <!-- Investment Form -->
-    <form method="POST">
-      <div class="form-group">
-        <label for="currency">1️⃣ <b>Step 1:</b> Currency</label>
-        <select id="currency" name="currency" class="form-control" required>
-          <option value="">Pilih mata uang yang digunakan</option>
-          <option value="Rp">Rp Indonesia</option>
-          <option value="$">$ Dollar</option>
-          <option value="€">€ Euro</option>
-          <option value="£">£ Pound</option>
-          <option value="₹">₹ Rupee</option>
-          <option value="¥">¥ Yen</option>
-          <option value="₣">₣ France</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="principal">2️⃣ <b>Step 2:</b> Initial Investment Amount</label>
-        <input type="number" id="principal" name="principal" class="form-control" placeholder="Mau investasi berapa?" step="0.01" required>
-      </div>
-      <div class="form-group">
-        <label for="annual_rate">3️⃣ <b>Step 3:</b> Estimated Annual Rate of Return (%)</label>
-        <input type="number" id="annual_rate" name="annual_rate" class="form-control" placeholder="Kira-kira berapa persen return tahunannya?" step="0.01" required>
-      </div>
-      <div class="form-group">
-        <label for="years">4️⃣ <b>Step 4:</b> Years of Growth</label>
-        <input type="number" id="years" name="years" class="form-control" placeholder="Jangka waktu investasinya berapa lama?" required>
-      </div>
-      <div class="form-group">
-        <label for="contribution_amount">5️⃣ <b>Step 5:</b> Contribution Amount</label>
-        <input type="number" id="contribution_amount" name="contribution_amount" class="form-control" placeholder="Ada rencana buat nyetor tambahan investasi?" required>
-      </div>
-      <div class="form-group">
-        <label for="contribution_frequency">6️⃣ <b>Step 6:</b> Contribution Frequency</label>
-        <select id="contribution_frequency" name="contribution_frequency" class="form-control" required>
-          <option value=" ">Setor tambahannya seberapa sering?</option>
-          <option value="annually">Rutin setiap setahun sekali</option>
-          <option value="semi-annually">Rutin setiap 6 bulan sekali</option>
-          <option value="quarterly">Rutin setiap 3 bulan sekali</option>
-          <option value="monthly">Rutin setiap bulan</option>
-          <option value="weekly">Rutin setiap minggu</option>
-          <option value="daily">Rutin setiap hari</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="compounding_frequency">7️⃣ <b>Step 7:</b> Compounding Frequency</label>
-        <select id="compounding_frequency" name="compounding_frequency" class="form-control" required>
-          <option value=" ">Pilih jenis pemajemukan bunga-nya</option>
-          <option value="annually">Tahunan (Annually)</option>
-          <option value="semi-annually">6 bulanan (Semi-annually)</option>
-          <option value="quarterly">3 bulanan (Quarterly)</option>
-          <option value="monthly">Bulanan (Monthly)</option>
-          <option value="weekly">Mingguan (Weekly)</option>
-          <option value="daily">Harian (Daily)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="inflation_rate">8️⃣ <b>Step 8:</b> Inflation Rate (%)</label>
-        <input type="number" id="inflation_rate" name="inflation_rate" class="form-control" placeholder="Kira-kira berapa besar inflasi-nya?" step="0.01" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Calculate</button>
-    </form>
-  </main>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
