@@ -1,661 +1,580 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investment Result</title>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Result</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 </head>
 <body>
-<style>
-/* General body styling */
-body {
-font-family: Arial, sans-serif;
-background-color: #f4f7f9; /* Light background for contrast */
-color: #041E4F; /* Primary text color */
-}
-
-/* Header styling */
-header {
-background-color: #041E4F; /* Dark blue header */
-padding: 20px 0;
-color: #fff;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
-}
-
-.header-content {
-max-width: 1200px;
-margin: 0 auto;
-}
-
-.header-title {
-font-size: 2.5rem;
-font-weight: 700;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: #fff;
-margin-bottom: 25px;
-}
-
-nav {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 10px;
-}
-
-/* Title Styling */
-h1 {
-font-size: 2.5rem;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 2px;
-margin-bottom: 20px;
-color: #041E4F; /* Dark blue for titles */
-}
-
-h4, h5 {
-color: #186B61; /* Teal for section headers */
-}
-
-/* Navbar Styling */
-.nav-item {
-margin-right: 20px;
-position: relative;
-}
-
-.nav-link {
-color: #fff;
-font-size: 1rem;
-font-weight: 500;
-text-decoration: none;
-transition: color 0.3s ease, transform 0.3s ease;
-padding: 10px 15px;
-border-radius: 8px;
-background-color: #186B61; /* Teal for nav links */
-}
-
-.nav-link:hover {
-color: #fff;
-background-color: #145752; /* Darker teal on hover */
-transform: translateY(-3px);
-}
-
-.nav-link.active {
-background-color: #041E4F; /* Dark blue for active state */
-color: #fff;
-}
-
-.nav-link.inactive {
-background-color: #186B61; /* Teal for inactive state */
-color: #fff;
-}
-
-/* Responsive Navbar */
-@media (max-width: 768px) {
-.nav {
-    flex-direction: column;
-    gap: 15px;
-}
-
-.header-title, h1 {
-    font-size: 2rem;
-}
-
-.nav-item {
-    text-align: center;
-}
-}
-
-/* Footer Styling */
-footer {
-background-color: #041E4F; /* Dark blue footer */
-color: #fff;
-padding: 20px;
-text-align: center;
-margin-top: 20px;
-}
-
-footer a {
-color: #fff;
-text-decoration: none;
-margin-right: 15px;
-}
-
-footer a:hover {
-text-decoration: underline;
-color: #186B61; /* Teal on hover */
-}
-
-footer p {
-font-size: 0.875rem;
-margin-top: 10px;
-}
-
-/* Collapsible section styles */
-.section-content {
-display: none;
-}
-
-.section-title {
-cursor: pointer;
-font-weight: bold;
-color: #041E4F; /* Dark blue */
-}
-
-.section-title:hover {
-color: #186B61; /* Teal on hover */
-}
-
-/* Table Styling */
-.table {
-border-color: #186B61; /* Teal borders */
-}
-
-.table thead th {
-background-color: #041E4F; /* Dark blue header */
-color: #fff;
-text-align: center;
-}
-
-.table tbody tr:nth-child(odd) {
-background-color: #f4f7f9; /* Light background for odd rows */
-}
-
-.table tbody tr:nth-child(even) {
-background-color: #fff; /* White for even rows */
-}
-
-/* Button Styling */
-.btn-primary {
-background-color: #186B61; /* Teal button */
-border-color: #186B61;
-transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-background-color: #145752; /* Darker teal on hover */
-border-color: #145752;
-}
-
-/* Chart Container */
-.chart-container {
-display: flex;
-justify-content: center;
-align-items: center;
-width: 100%;
-height: auto;
-margin-top: 20px;
-}
-
-#chart {
-width: 100%;
-max-width: 700px;
-height: 300px;
-}
-
-/* Print-specific styles */
-@media print {
-.btn, .nav-tabs, .section-title, .print-btn {
-    display: none;
-}
-
-#chart, #chart canvas {
-    display: block !important;
-    width: 100% !important;
-    max-width: 700px !important;
-    height: auto !important;
-    margin: 0 auto !important;
-}
-
-.table {
-    width: 100% !important;
-    max-width: 700px !important;
-    margin: 0 auto !important;
-    font-size: 10px !important;
-}
-
-.table th, .table td {
-    padding: 6px !important;
-    text-align: center;
-}
-
-body {
-    font-size: 12px;
-    padding: 10px;
-    background-color: #fff; /* White background for print */
-}
-
-.container {
-    padding: 0;
-}
-
-.section-content {
-    display: block !important;
-    margin-bottom: 15px;
-}
-
-.row {
-    margin-bottom: 15px;
-}
-
-h1, h4 {
-    font-size: 16px;
-    text-align: center;
-}
-
-.nav-tabs {
-    display: none;
-}
-
-.text-center {
-    text-align: center !important;
-}
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-.table th, .table td {
-    padding: 5px;
-}
-
-.container {
-    padding: 12px;
-}
-
-.nav-tabs {
-    flex-direction: column;
-    margin-top: 20px;
-}
-
-.nav-link {
-    font-size: 16px;
-    padding: 12px;
-    margin-bottom: 10px;
-}
-
-.nav-item {
-    margin: 5px 0;
-    padding: 0;
-}
-}
-</style>
-
-<header>
-<div class="container">
-<h1 class="text-center mb-4">Investment Calculator</h1>
-</div>
-</header>
-
-<div class="container">
-<!-- Detailed Inputs Summary -->
-<div class="row mb-4">
-<div class="col-12">
-    <h4 class="text-center mb-4">🌐 Investment Inputs:</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Input Variables</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Initial Amount</td>
-                    <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
-                </tr>
-                <tr>
-                    <td>Annual Rate</td>
-                    <td>{{'{:,.1f}'.format(annual_rate*100)}}%</td>
-                </tr>
-                <tr>
-                    <td>Years</td>
-                    <td>{{ years }} years</td>
-                </tr>
-                <tr>
-                    <td>Contribution Amount</td>
-                    <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount) }} {{ contribution_frequency }}</td>
-                </tr>
-                <tr>
-                    <td>Inflation Rate</td>
-                    <td>{{'{:,.1f}'.format(inflation_rate*100)}}%</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
-
-<!-- Summary of Capital -->
-<div class="row mb-4">
-<div class="col-12">
-    <h4 class="text-center mb-4">🌐 Total Money Invested:</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Capital Type</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Principal</td>
-                    <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
-                </tr>
-                <tr>
-                    <td>Total Contributions</td>
-                    <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount * contribution_n * years) }}</td>
-                </tr>
-                <tr>
-                    <td>Total Capital (Principal + Total Contributions)</td>
-                    <td>{{ currency }} {{ '{:,.0f}'.format(principal + (contribution_amount * contribution_n * years)) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
-
-<!-- Summary of Balances -->
-<div class="row mb-4">
-<div class="col-12">
-    <h4 class="text-center mb-4">🌐 Summary of Balances:</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Balance Type</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Final Balance Without Inflation</td>
-                    <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_without_inflation) }}</td>
-                </tr>
-                <tr>
-                    <td>Final Balance With Inflation</td>
-                    <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_with_inflation) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
-
-<!-- Horizontal Navigation for Sections -->
-<ul class="nav nav-tabs">
-<li class="nav-item">
-    <a class="nav-link active" href="javascript:void(0);" onclick="toggleSection('balance-without-inflation', this)">📊 Balance Without Inflation</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('balance-with-inflation', this)">📊 Balance With Inflation</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('chart', this)">📈 Comparative Chart</a>
-</li>
-</ul>
-
-<!-- Section Content -->
-<div class="mt-4">
-<!-- Balance Without Inflation Section -->
-<div id="balance-without-inflation" class="section-content">
-    <h5 class="text-center">📊 Table 1: Balance Without Inflation</h5>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Starting Balance</th>
-                    <th>Interest Earned</th>
-                    <th>Contributions</th>
-                    <th>Ending Balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for year, details in yearly_summary_without_inflation.items() %}
-                <tr>
-                    <td>{{ year }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Balance With Inflation Section -->
-<div id="balance-with-inflation" class="section-content">
-    <h5 class="text-center">📊 Table 2: Balance With Inflation</h5>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Starting Balance</th>
-                    <th>Interest Earned</th>
-                    <th>Contributions</th>
-                    <th>Ending Balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for year, details in yearly_summary_with_inflation.items() %}
-                <tr>
-                    <td>{{ year }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
-                    <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Comparative Chart Section -->
-<!-- Comparative Chart Section -->
-<div id="chart" class="section-content">
-<h5 class="text-center">📈 Comparative Chart: Investment Growth Breakdown</h5>
-<div class="chart-container">
-<canvas id="investmentChart" style="width:100%;height:auto;"></canvas>
-</div>
-<script>
-var ctx = document.getElementById('investmentChart').getContext('2d');
-
-// Data from Flask template
-var principal = {{ principal }};
-var yearly_contribution = {{ contribution_amount }} * ({{ 1 if contribution_frequency == 'annually' else 12 if contribution_frequency == 'monthly' else 4 if contribution_frequency == 'quarterly' else 1 }});
-var years = {{ years }};
-var totalCapitalData = Array.from({ length: years }, (_, i) => principal + yearly_contribution * (i + 1));
-
-// Cumulative interest and contributions data
-var interestWithoutInflationData = [];
-var cumulativeContributionsData = [];
-var cumulativeInterest = 0;
-var cumulativeContributions = 0;
-{% for year, details in yearly_summary_without_inflation.items() %}
-cumulativeInterest += {{ details['interest_earned'] }};
-cumulativeContributions += {{ details['contributions'] }};
-interestWithoutInflationData.push(cumulativeInterest);
-cumulativeContributionsData.push(cumulativeContributions);
-{% endfor %}
-
-// Gradient for lines
-var gradientBlue = ctx.createLinearGradient(0, 0, 0, 300);
-gradientBlue.addColorStop(0, '#041E4F');
-gradientBlue.addColorStop(1, '#186B61');
-
-var gradientTeal = ctx.createLinearGradient(0, 0, 0, 300);
-gradientTeal.addColorStop(0, '#186B61');
-gradientTeal.addColorStop(1, '#145752');
-
-// Chart configuration
-var investmentChart = new Chart(ctx, {
-type: 'line',
-data: {
-    labels: [{% for year in range(1, years + 1) %}{{ year }},{% endfor %}],
-    datasets: [
-        {
-            label: 'Balance Without Inflation',
-            data: [{% for year, details in yearly_summary_without_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
-            borderColor: gradientBlue,
-            backgroundColor: gradientBlue,
-            pointBackgroundColor: '#041E4F',
-            pointBorderColor: '#fff',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            fill: false,
-            tension: 0.4
-        },
-        {
-            label: 'Balance With Inflation',
-            data: [{% for year, details in yearly_summary_with_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
-            borderColor: gradientTeal,
-            backgroundColor: gradientTeal,
-            pointBackgroundColor: '#186B61',
-            pointBorderColor: '#fff',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            fill: false,
-            tension: 0.4
-        },
-        {
-            label: 'Total Capital (Principal + Contributions)',
-            data: totalCapitalData,
-            borderColor: '#145752',
-            pointBackgroundColor: '#145752',
-            pointBorderColor: '#fff',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            borderDash: [5, 5],
-            fill: false,
-            tension: 0.4
-        },
-        {
-            label: 'Cumulative Interest (No Inflation)',
-            data: interestWithoutInflationData,
-            borderColor: '#4682B4',
-            pointBackgroundColor: '#4682B4',
-            pointBorderColor: '#fff',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            fill: false,
-            tension: 0.4
-        },
-        {
-            label: 'Cumulative Contributions',
-            data: cumulativeContributionsData,
-            borderColor: '#2E8B57',
-            pointBackgroundColor: '#2E8B57',
-            pointBorderColor: '#fff',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            fill: false,
-            tension: 0.4
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f4f7f9 0%, #e8ecef 100%);
+            color: #041E4F;
+            line-height: 1.6;
         }
-    ]
-},
-options: {
-    responsive: true,
-    plugins: {
-        legend: {
-            position: 'top',
-            labels: {
-                font: {
-                    size: 12,
-                    family: 'Arial',
-                    weight: 'bold'
-                },
-                color: '#041E4F'
-            }
-        },
-        tooltip: {
-            mode: 'index',
-            intersect: false,
-            backgroundColor: 'rgba(4, 30, 79, 0.9)', // Dark blue
-            titleFont: { size: 14 },
-            bodyFont: { size: 12 },
-            padding: 10,
-            borderColor: '#186B61',
-            borderWidth: 1
+
+        /* Header styling */
+        header {
+            background: linear-gradient(90deg, #041E4F 0%, #08357D 100%);
+            padding: 20px 0;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-    },
-    scales: {
-        x: {
-            title: {
-                display: true,
-                text: 'Years',
-                color: '#041E4F',
-                font: { size: 14, weight: 'bold' }
-            },
-            grid: {
-                display: false
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0;
+        }
+
+        /* Title Styling */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #041E4F;
+            margin-bottom: 25px;
+        }
+
+        h4, h5 {
+            color: #186B61;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Navbar Styling */
+        .nav-tabs {
+            border-bottom: none;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            margin: 0 10px;
+        }
+
+        .nav-link {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 12px;
+            background: #186B61;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link:hover {
+            background: #145752;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-link.active {
+            background: #041E4F;
+            box-shadow: 0 4px 12px rgba(4, 30, 79, 0.3);
+        }
+
+        .nav-link.inactive {
+            background: #186B61;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        /* Table Styling */
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+
+        .table thead th {
+            background: #041E4F;
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .table tbody td {
+            padding: 10px;
+            text-align: right;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background: #f8fafc;
+        }
+
+        .table tbody tr:hover {
+            background: #e9f1f5;
+            transition: background 0.2s ease;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background: #186B61;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            background: #145752;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: linear-gradient(90deg, #041E4F 0%, #08357D 100%);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Section Content */
+        .section-content {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-title, h1 {
+                font-size: 2rem;
             }
-        },
-        y: {
-            beginAtZero: true,
-            title: {
-                display: true,
-                text: 'Amount ({{ currency }})',
-                color: '#041E4F',
-                font: { size: 14, weight: 'bold' }
-            },
-            grid: {
-                color: '#e0e0e0'
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-item {
+                margin: 5px 0;
+            }
+
+            .nav-link {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+
+            .table td, .table th {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .chart-container {
+                height: 400px;
             }
         }
-    },
-    interaction: {
-        mode: 'nearest',
-        axis: 'x',
-        intersect: false
-    },
-    animation: {
-        duration: 1000,
-        easing: 'easeInOutQuart'
-    }
-}
-});
-</script>
-</div>
 
-<!-- "Print Report" Button -->
-<div class="text-center mt-4">
-<button class="btn btn-primary print-btn" onclick="window.print()">Print Report</button>
-</div>
-</div>
+        /* Print-specific styles */
+        @media print {
+            .btn, .nav-tabs, .print-btn {
+                display: none;
+            }
 
-<footer>
-<p>&copy; 2025 Investment Calculator. All rights reserved.</p>
-</footer>
+            .chart-container {
+                height: auto !important;
+            }
 
-<script>
-function toggleSection(id, element) {
-var sections = document.querySelectorAll('.section-content');
-sections.forEach(function(section) {
-    section.style.display = 'none';
-});
-var section = document.getElementById(id);
-section.style.display = 'block';
-var navLinks = document.querySelectorAll('.nav-link');
-navLinks.forEach(function(link) {
-    link.classList.remove('active');
-    link.classList.add('inactive');
-});
-element.classList.remove('inactive');
-element.classList.add('active');
-}
-</script>
+            .table {
+                width: 100% !important;
+                font-size: 10px !important;
+            }
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            .table th, .table td {
+                padding: 6px !important;
+                text-align: center;
+            }
+
+            body {
+                font-size: 12px;
+                padding: 10px;
+                background: #fff;
+            }
+
+            .section-content {
+                display: block !important;
+                box-shadow: none;
+            }
+
+            h1, h4, h5 {
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <header>
+        <div class="container">
+            <h1 class="text-center header-title">Investment Calculator</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Detailed Inputs Summary -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="text-center">🌐 Investment Inputs</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Input Variables</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Initial Amount</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Annual Rate</td>
+                                <td>{{'{:,.1f}'.format(annual_rate*100)}}%</td>
+                            </tr>
+                            <tr>
+                                <td>Years</td>
+                                <td>{{ years }} years</td>
+                            </tr>
+                            <tr>
+                                <td>Contribution Amount</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount) }} {{ contribution_frequency }}</td>
+                            </tr>
+                            <tr>
+                                <td>Inflation Rate</td>
+                                <td>{{'{:,.1f}'.format(inflation_rate*100)}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary of Capital -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="text-center">🌐 Total Money Invested</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Capital Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Principal</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(principal) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Contributions</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(contribution_amount * contribution_n * years) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Capital</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(principal + (contribution_amount * contribution_n * years)) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary of Balances -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="text-center">🌐 Summary of Balances</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Balance Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Final Balance (No Inflation)</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_without_inflation) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Final Balance (With Inflation)</td>
+                                <td>{{ currency }} {{ '{:,.0f}'.format(final_balance_with_inflation) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Horizontal Navigation for Sections -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="javascript:void(0);" onclick="toggleSection('balance-without-inflation', this)">📊 Balance Without Inflation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('balance-with-inflation', this)">📊 Balance With Inflation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link inactive" href="javascript:void(0);" onclick="toggleSection('chart', this)">📈 Comparative Chart</a>
+            </li>
+        </ul>
+
+        <!-- Section Content -->
+        <div class="mt-4">
+            <!-- Balance Without Inflation Section -->
+            <div id="balance-without-inflation" class="section-content">
+                <h5 class="text-center">📊 Balance Without Inflation</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Starting Balance</th>
+                                <th>Interest Earned</th>
+                                <th>Contributions</th>
+                                <th>Ending Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for year, details in yearly_summary_without_inflation.items() %}
+                            <tr>
+                                <td>{{ year }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Balance With Inflation Section -->
+            <div id="balance-with-inflation" class="section-content">
+                <h5 class="text-center">📊 Balance With Inflation</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Starting Balance</th>
+                                <th>Interest Earned</th>
+                                <th>Contributions</th>
+                                <th>Ending Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for year, details in yearly_summary_with_inflation.items() %}
+                            <tr>
+                                <td>{{ year }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['starting_balance']) }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['interest_earned']) }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['contributions']) }}</td>
+                                <td>{{ currency }} {{ '{:,.2f}'.format(details['ending_balance']) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Comparative Chart Section -->
+            <div id="chart" class="section-content">
+                <h5 class="text-center">📈 Investment Growth Breakdown</h5>
+                <div id="investmentChart" class="chart-container"></div>
+                <script>
+                    var chartDom = document.getElementById('investmentChart');
+                    var myChart = echarts.init(chartDom);
+
+                    // Data from Flask
+                    var years = {{ years }};
+                    var principal = {{ principal }};
+                    var yearly_contribution = {{ contribution_amount }} * ({{ 1 if contribution_frequency == 'annually' else 12 if contribution_frequency == 'monthly' else 4 if contribution_frequency == 'quarterly' else 1 }});
+                    var totalCapitalData = Array.from({ length: years }, (_, i) => principal + yearly_contribution * (i + 1));
+
+                    var interestWithoutInflationData = [];
+                    var cumulativeContributionsData = [];
+                    var cumulativeInterest = 0;
+                    var cumulativeContributions = 0;
+                    {% for year, details in yearly_summary_without_inflation.items() %}
+                        cumulativeInterest += {{ details['interest_earned'] }};
+                        cumulativeContributions += {{ details['contributions'] }};
+                        interestWithoutInflationData.push(cumulativeInterest.toFixed(2));
+                        cumulativeContributionsData.push(cumulativeContributions.toFixed(2));
+                    {% endfor %}
+
+                    var option = {
+                        title: { show: false },
+                        tooltip: {
+                            trigger: 'axis',
+                            backgroundColor: 'rgba(4, 30, 79, 0.9)',
+                            borderColor: '#186B61',
+                            borderWidth: 1,
+                            textStyle: { color: '#fff' },
+                            formatter: function(params) {
+                                var result = '<b>Year ' + params[0].name + '</b><br/>';
+                                params.forEach(function(item) {
+                                    result += item.marker + item.seriesName + ': {{ currency }} ' + item.value.toLocaleString() + '<br/>';
+                                });
+                                return result;
+                            }
+                        },
+                        legend: {
+                            data: ['Balance (No Inflation)', 'Balance (With Inflation)', 'Total Capital', 'Cumulative Interest', 'Cumulative Contributions'],
+                            textStyle: { color: '#041E4F', fontWeight: 'bold' },
+                            top: 10
+                        },
+                        grid: { left: '3%', right: '3%', bottom: '15%', containLabel: true },
+                        dataZoom: [
+                            { type: 'inside', start: 0, end: 100 },
+                            { type: 'slider', start: 0, end: 100 }
+                        ],
+                        xAxis: {
+                            type: 'category',
+                            data: [{% for year in range(1, years + 1) %}{{ year }},{% endfor %}],
+                            name: 'Years',
+                            nameTextStyle: { color: '#041E4F', fontWeight: 'bold' },
+                            axisLine: { lineStyle: { color: '#041E4F' } }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: 'Amount ({{ currency }})',
+                            nameTextStyle: { color: '#041E4F', fontWeight: 'bold' },
+                            axisLine: { lineStyle: { color: '#041E4F' } },
+                            splitLine: { lineStyle: { color: '#e0e0e0' } }
+                        },
+                        series: [
+                            {
+                                name: 'Balance (No Inflation)',
+                                type: 'line',
+                                smooth: true,
+                                data: [{% for year, details in yearly_summary_without_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
+                                lineStyle: { color: '#041E4F', width: 2 },
+                                areaStyle: { color: 'rgba(4, 30, 79, 0.2)' },
+                                itemStyle: { color: '#041E4F' }
+                            },
+                            {
+                                name: 'Balance (With Inflation)',
+                                type: 'line',
+                                smooth: true,
+                                data: [{% for year, details in yearly_summary_with_inflation.items() %}{{ details['ending_balance'] }},{% endfor %}],
+                                lineStyle: { color: '#186B61', width: 2 },
+                                areaStyle: { color: 'rgba(24, 107, 97, 0.2)' },
+                                itemStyle: { color: '#186B61' }
+                            },
+                            {
+                                name: 'Total Capital',
+                                type: 'line',
+                                smooth: true,
+                                data: totalCapitalData,
+                                lineStyle: { color: '#145752', width: 2, type: 'dashed' },
+                                itemStyle: { color: '#145752' }
+                            },
+                            {
+                                name: 'Cumulative Interest',
+                                type: 'line',
+                                smooth: true,
+                                data: interestWithoutInflationData,
+                                lineStyle: { color: '#4682B4', width: 2 },
+                                itemStyle: { color: '#4682B4' }
+                            },
+                            {
+                                name: 'Cumulative Contributions',
+                                type: 'line',
+                                smooth: true,
+                                data: cumulativeContributionsData,
+                                lineStyle: { color: '#2E8B57', width: 2 },
+                                itemStyle: { color: '#2E8B57' }
+                            }
+                        ]
+                    };
+
+                    myChart.setOption(option);
+
+                    // Resize chart on window resize
+                    window.addEventListener('resize', function() {
+                        myChart.resize();
+                    });
+                </script>
+            </div>
+        </div>
+
+        <!-- Print Report Button -->
+        <div class="text-center mt-4">
+            <button class="btn btn-primary print-btn" onclick="window.print()">Print Report</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Investment Calculator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleSection(id, element) {
+            var sections = document.querySelectorAll('.section-content');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            var section = document.getElementById(id);
+            section.style.display = 'block';
+            var navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                link.classList.add('inactive');
+            });
+            element.classList.remove('inactive');
+            element.classList.add('active');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
